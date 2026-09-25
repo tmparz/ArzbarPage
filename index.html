@@ -4,473 +4,97 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>阿茲 Arzbar｜AI 問題解決師</title>
-<meta name="description" content="阿茲｜AI 問題解決師。從真實工作問題出發，判斷 AI 該放哪裡，再用自動化、API、資料與系統整合把解法做成能運作的流程。">
+<meta name="description" content="阿茲｜AI 問題解決師。把卡住的工作流程拆清楚，判斷 AI、自動化、API 與資料系統該放在哪裡，做成真正能運作的解法。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Martian+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Press+Start+2P&display=swap">
 <style>
-:root{
-  color-scheme:light;
-  --board:#f5efe6;       /* warm ivory */
-  --board-2:#eadfd2;
-  --ink:#30251f;
-  --muted:#78685d;
-  --rule:#d7c5b4;
-  --marker:#b85f3c;      /* terracotta marker */
-  --hl:#e6c66b;          /* warm ochre highlighter */
-  --hl-ink:#2c211b;
-  --strike:#b55248;
-  --hand:"LXGW WenKai TC","Kaiti TC","KaiTi","STKaiti",serif;
-  --sans:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
-  --mono:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --board:#211915;--board-2:#2b211c;--ink:#f2e6d8;--muted:#b9a698;--rule:#4a392f;
-    --marker:#e18a5f;--hl:#d2ae55;--hl-ink:#241a15;--strike:#dc7669;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --board:#211915;--board-2:#2b211c;--ink:#f2e6d8;--muted:#b9a698;--rule:#4a392f;
-  --marker:#e18a5f;--hl:#d2ae55;--hl-ink:#241a15;--strike:#dc7669;
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{
-  margin:0;background:var(--board);color:var(--ink);
-  font-family:var(--sans);font-size:17px;line-height:1.8;
-  /* faint dot grid, like a planning board */
-  background-image:radial-gradient(var(--rule) 1px,transparent 1.2px);
-  background-size:28px 28px;
-}
-a{color:inherit}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dashed var(--marker);outline-offset:4px}
-.page{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
-mark{background:linear-gradient(transparent 38%,var(--hl) 38%,var(--hl) 88%,transparent 88%);color:inherit;padding:0 .12em}
-.hand{font-family:var(--hand)}
-.note{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
-h1,h2,h3{font-family:var(--hand);font-weight:700;text-wrap:balance;margin:0}
-h2{font-size:clamp(30px,4.4vw,48px);line-height:1.2}
-h3{font-size:24px;line-height:1.35}
-p{margin:0}
-
-/* header */
-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-block:26px 0}
-.name{display:flex;align-items:baseline;gap:12px}
-.name b{font-family:var(--hand);font-size:26px}
-header nav{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}
-header nav a{text-decoration:none;color:var(--muted)}
-header nav a:hover{color:var(--marker)}
-
-/* hero */
-.hero{padding-block:clamp(40px,7vw,80px) 24px}
-.hero h1{font-size:clamp(38px,6.6vw,76px);line-height:1.18;max-width:15em}
-.hero .intro{max-width:36em;margin-top:22px;font-size:18px;color:var(--muted)}
-.hero .intro strong{color:var(--ink);font-weight:700}
-.identity{display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--marker);color:var(--marker);padding:7px 12px;border-radius:999px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em}
-.identity::before{content:"AI";display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--marker);color:var(--board);font-family:var(--mono);font-size:11px}
-.ai-signals{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:24px;padding-top:18px;border-top:1px solid var(--rule);max-width:760px}
-.ai-signal{display:flex;gap:8px;align-items:baseline;color:var(--muted);font-size:14px}
-.ai-signal b{font-family:var(--hand);font-size:20px;color:var(--marker)}
-
-.board{margin-top:40px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding-block:14px 18px}
-.board-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-#wire{display:block;width:100%;height:auto;overflow:visible;touch-action:pan-y}
-#wire .line{fill:none;stroke:var(--marker);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
-#wire .dot{fill:var(--board);stroke:var(--ink);stroke-width:3}
-#wire .end{fill:var(--ink)}
-#wire text{font-family:var(--hand);font-size:27px;fill:var(--ink);text-anchor:middle}
-#wire text.small{font-family:var(--mono);font-size:15px;fill:var(--muted);letter-spacing:.06em}
-.control{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.control label{font-family:var(--hand);font-size:20px}
-#tidy{flex:1;min-width:160px;accent-color:var(--marker);height:28px}
-#readout{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;min-width:5.5em;text-align:right}
-#caption{font-family:var(--hand);font-size:20px;margin-top:6px;min-height:1.8em}
-
-/* sections */
-section{padding-block:clamp(64px,9vw,110px) 0}
-.sec-head{display:grid;grid-template-columns:180px 1fr;gap:12px 32px;align-items:baseline;margin-bottom:36px}
-.sec-head .lede{grid-column:2;color:var(--muted);max-width:36em}
-
-/* about */
-.letter{display:grid;grid-template-columns:180px 1fr;gap:32px}
-.letter-body{max-width:38em;display:grid;gap:18px;font-size:18px}
-.letter-body .hello{font-family:var(--hand);font-size:clamp(26px,3.4vw,34px);line-height:1.4}
-.habits{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;margin-top:22px}
-.habit b{display:block;font-family:var(--hand);font-size:21px;margin-bottom:4px}
-.habit p{color:var(--muted);font-size:15.5px}
-.sign{font-family:var(--hand);font-size:22px;margin-top:6px}
-
-/* triage */
-.triage{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
-.chips{display:flex;flex-direction:column;gap:2px}
-.chip{all:unset;cursor:pointer;display:flex;gap:14px;align-items:baseline;padding:13px 4px;border-bottom:1px solid var(--rule);font-size:17px;transition:padding .15s ease}
-.chip .note{min-width:4.5em}
-.chip:hover{padding-left:10px}
-.chip[aria-pressed="true"]{font-weight:700}
-.chip[aria-pressed="true"] span:last-child{background:linear-gradient(transparent 50%,var(--hl) 50%,var(--hl) 92%,transparent 92%);color:var(--ink)}
-.chip:focus-visible{outline:2px dashed var(--marker);outline-offset:2px}
-.sheet{background:var(--board-2);border:1.5px solid var(--ink);padding:clamp(20px,3vw,32px);box-shadow:6px 6px 0 var(--ink);display:grid;gap:18px}
-.sheet h3{font-size:26px}
-.sheet dl{margin:0;display:grid;gap:14px}
-.sheet dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
-.sheet dd{margin:2px 0 0}
-.sheet dd.fix{font-family:var(--hand);font-size:21px;color:var(--marker)}
-.sheet .asks{margin:4px 0 0;padding-left:1.2em}
-.sheet .asks li{margin-bottom:2px}
-
-/* method: one straight line with stops */
-.route{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;padding-top:34px}
-.route::before{content:"";position:absolute;left:8px;right:8px;top:9px;height:5px;border-radius:3px;background:var(--marker)}
-.stop{position:relative}
-.stop::before{content:"";position:absolute;top:-34px;left:0;width:18px;height:18px;border-radius:50%;background:var(--board);border:3px solid var(--ink)}
-.stop .note{display:block}
-.stop b{display:block;font-family:var(--hand);font-size:24px;margin:2px 0 4px}
-.stop p{color:var(--muted);font-size:15px;line-height:1.6}
-
-/* cases */
-.cases{display:grid;gap:0}
-.case{display:grid;grid-template-columns:180px 1fr;gap:12px 32px;padding-block:32px;border-top:1px solid var(--rule)}
-.case:last-child{border-bottom:1px solid var(--rule)}
-.case h3{margin-bottom:14px}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:15px;margin:6px 0}
-.flow .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);width:4.5em;flex:none}
-.flow.before span:not(.tag){text-decoration:line-through;text-decoration-color:var(--strike);text-decoration-thickness:2px;color:var(--muted)}
-.flow.after span:not(.tag){font-weight:500}
-.flow i{font-style:normal;color:var(--muted)}
-.case .takeaway{font-family:var(--hand);font-size:20px;margin-top:14px;color:var(--marker)}
-
-/* toolbox */
-.toolbox{display:grid;grid-template-columns:180px 1fr;gap:32px}
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 32px}
-.tools b{display:block;font-family:var(--hand);font-size:20px;margin-bottom:4px}
-.tools p{color:var(--muted);font-size:15px}
-
-/* contact */
-.contact{padding-block:clamp(72px,10vw,120px)}
-.card-note{position:relative;max-width:640px;margin-left:auto;margin-right:clamp(0px,6vw,80px);background:var(--hl);color:var(--hl-ink);padding:clamp(26px,4vw,40px);transform:rotate(-1.2deg);box-shadow:0 14px 30px -18px rgba(0,0,0,.45)}
-.card-note::before{content:"";position:absolute;top:-14px;left:50%;width:110px;height:28px;margin-left:-55px;background:rgba(255,255,255,.45);transform:rotate(2deg)}
-.card-note h2{font-size:clamp(28px,4vw,40px)}
-.card-note p{margin-top:14px}
-.card-note ul{margin:16px 0 0;padding-left:1.2em}
-.card-note .go{display:inline-block;margin-top:22px;font-family:var(--hand);font-size:22px;font-weight:700;color:var(--hl-ink);text-decoration:none;border-bottom:3px solid var(--hl-ink);padding-bottom:2px}
-.card-note .go:hover{letter-spacing:.02em}
-.contact-side{max-width:420px;margin-bottom:18px}
-.contact-side p{font-family:var(--hand);font-size:clamp(24px,3vw,30px);line-height:1.45}
-
-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-block:22px 36px;border-top:1.5px solid var(--ink)}
-
-@media (max-width:860px){
-  .sec-head,.letter,.case,.toolbox{grid-template-columns:1fr}
-  .sec-head .lede{grid-column:1}
-  .triage{grid-template-columns:1fr}
-  .route{grid-template-columns:1fr 1fr 1fr;row-gap:44px}
-  .route::before{display:none}
-  .stop::after{content:"";position:absolute;top:-27px;left:18px;right:-18px;height:5px;background:var(--marker)}
-  .tools{grid-template-columns:1fr 1fr}
-  .contact-side{margin-bottom:28px}
-}
-@media (max-width:560px){
-  body{font-size:16px}
-  .habits,.tools{grid-template-columns:1fr}
-  .route{grid-template-columns:1fr 1fr}
-  .card-note{transform:none}
-  #wire text{font-size:34px}
-}
+:root{--bg:#f4eadc;--paper:#fff7ec;--paper2:#ead8c6;--ink:#2e211b;--muted:#7c6658;--terra:#b85f3c;--terra2:#d7835d;--ochre:#e2bd62;--sage:#8d9a77;--line:#cdb49e;--pixel:"Press Start 2P",ui-monospace,monospace;--sans:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(rgba(46,33,27,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(46,33,27,.055) 1px,transparent 1px),var(--bg);background-size:24px 24px;color:var(--ink);font-family:var(--sans);line-height:1.75}a{color:inherit}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.tag{font:700 10px/1.5 var(--pixel);letter-spacing:.03em}.muted{color:var(--muted)}.frame{border:3px solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--ink)}.pixel-corners{clip-path:polygon(0 10px,10px 10px,10px 0,calc(100% - 10px) 0,calc(100% - 10px) 10px,100% 10px,100% calc(100% - 10px),calc(100% - 10px) calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,10px calc(100% - 10px),0 calc(100% - 10px))}
+.hud{position:sticky;top:0;z-index:20;background:rgba(244,234,220,.95);backdrop-filter:blur(10px);border-bottom:3px solid var(--ink)}.hud-row{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;min-height:74px}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900}.avatar{width:42px;height:42px;display:grid;place-items:center;background:var(--terra);color:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font:700 14px var(--pixel)}.brand small{display:block;color:var(--muted);font:400 9px/1.5 var(--pixel);margin-top:4px}.progress-shell{height:16px;border:3px solid var(--ink);background:var(--paper);padding:2px}.progress{height:100%;width:0;background:repeating-linear-gradient(90deg,var(--terra) 0 12px,var(--terra2) 12px 24px)}.hud-cta{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;background:var(--ochre);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-weight:900;text-decoration:none}.hud-cta:active{transform:translate(4px,4px);box-shadow:none}
+.hero{padding:64px 0 36px}.world{display:inline-flex;padding:9px 12px;background:var(--ink);color:var(--paper);font:700 9px var(--pixel)}.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:38px;align-items:center;margin-top:26px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(44px,7vw,82px);line-height:1.08;letter-spacing:-.04em;margin-bottom:22px}.hero-copy{font-size:19px;color:var(--muted);max-width:40em}.hero-copy strong{color:var(--ink)}.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 20px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);font-weight:900;text-decoration:none;background:var(--paper)}.btn.primary{background:var(--terra);color:#fff7ec}.btn:active{transform:translate(6px,6px);box-shadow:none}.console{padding:22px;background:var(--paper2)}.console-head{display:flex;justify-content:space-between;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:12px;margin-bottom:16px}.console-screen{min-height:340px;background:var(--ink);color:#f8e9d8;padding:22px;display:grid;align-content:space-between;position:relative;overflow:hidden}.console-screen:before{content:"";position:absolute;width:74px;height:74px;right:20px;top:20px;background:var(--terra);box-shadow:-18px 18px 0 var(--ochre),-36px 36px 0 var(--sage)}.console-screen:after{content:"";position:absolute;width:130px;height:14px;left:22px;bottom:22px;background:var(--terra);box-shadow:0 -22px 0 var(--terra2),0 -44px 0 var(--ochre)}.console-code{position:relative;z-index:2;font:400 10px/2 var(--pixel);max-width:72%}.console-title{position:relative;z-index:2;font-weight:900;font-size:clamp(26px,4vw,42px);line-height:1.2;max-width:8em;margin:0 0 86px}
+.scene{padding:92px 0 12px;scroll-margin-top:86px}.scene-head{display:grid;grid-template-columns:160px 1fr;gap:30px;align-items:start;margin-bottom:30px}.scene-no{display:inline-grid;place-items:center;width:92px;height:92px;background:var(--ochre);border:3px solid var(--ink);box-shadow:7px 7px 0 var(--ink);font:700 13px var(--pixel);text-align:center}.scene h2{font-size:clamp(34px,5vw,58px);line-height:1.16;letter-spacing:-.03em;margin-bottom:12px}.scene-lede{font-size:18px;color:var(--muted);max-width:42em}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch}.state{padding:28px;min-height:360px}.state.old{background:#e6d5c5}.state.new{background:#f9eed8}.state h3{font-size:30px;margin-bottom:20px}.stack{display:grid;gap:12px}.block{border:3px solid var(--ink);padding:14px 16px;background:var(--paper);font-weight:800;box-shadow:4px 4px 0 var(--ink)}.old .block:nth-child(2){transform:translateX(28px)}.old .block:nth-child(3){transform:translateX(-12px)}.old .block:nth-child(4){transform:translateX(38px)}.new .block{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fffaf0}.arrow{display:grid;place-items:center;font:700 20px var(--pixel);color:var(--terra)}.result-line{margin-top:22px;font-weight:900;color:var(--terra)}
+.system-map{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.module{padding:22px;min-height:190px;position:relative;overflow:hidden}.module:after{content:"";position:absolute;width:26px;height:26px;background:var(--ochre);right:14px;bottom:14px;box-shadow:-13px -13px 0 var(--terra)}.module .n{font:700 9px var(--pixel);color:var(--terra)}.module h3{font-size:26px;margin:12px 0 8px}.module p{color:var(--muted);margin:0;max-width:22em}.core{grid-column:2;background:var(--terra);color:#fff7ec;padding:28px;text-align:center;display:grid;place-items:center;min-height:220px}.core .tag{color:#f6d99c}.core h3{font-size:36px;margin:12px 0}
+.meters{display:grid;gap:18px;padding:28px}.meter-row{display:grid;grid-template-columns:180px 1fr 80px;gap:16px;align-items:center}.meter-label{font-weight:900}.meter-track{height:36px;border:3px solid var(--ink);background:var(--paper);padding:4px}.meter-track span{display:block;height:100%;background:var(--terra)}.meter-track.good span{background:var(--sage)}.status{font:700 8px var(--pixel);text-align:right}.compare-note{margin-top:24px;padding:20px 22px;border-left:8px solid var(--ochre);background:var(--paper);font-weight:800}
+.cases{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.case{padding:26px;position:relative;overflow:hidden}.case:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:9px;background:linear-gradient(90deg,var(--terra) 0 33%,var(--ochre) 33% 66%,var(--sage) 66%)}.case-type{font:700 8px var(--pixel);color:var(--terra);margin:10px 0 16px}.case h3{font-size:27px;margin-bottom:10px}.case p{color:var(--muted);margin-bottom:0}
+.final{padding:110px 0 80px}.final-card{padding:clamp(30px,6vw,64px);background:var(--ink);color:#fff7ec;position:relative;overflow:hidden}.final-card:before{content:"";position:absolute;width:210px;height:210px;background:var(--terra);right:-30px;top:-30px;box-shadow:-40px 40px 0 var(--ochre),-80px 80px 0 var(--sage);opacity:.92}.final-inner{position:relative;z-index:2;max-width:700px}.final h2{font-size:clamp(40px,6vw,70px);line-height:1.08;margin:18px 0}.final p{font-size:18px;color:#e5d2c2;max-width:36em}.final .btn{margin-top:24px;background:var(--ochre);color:var(--ink)}footer{padding:26px 0 46px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.scene-head{grid-template-columns:110px 1fr}.before-after{grid-template-columns:1fr}.arrow{transform:rotate(90deg);min-height:54px}.system-map{grid-template-columns:1fr 1fr}.core{grid-column:auto}}
+@media(max-width:680px){.wrap{width:min(100% - 22px,1120px)}.hud-row{grid-template-columns:auto 1fr;min-height:68px}.progress-shell{display:none}.brand span:last-child{display:none}.hero{padding-top:42px}.hero-grid{gap:24px}.console-screen{min-height:300px}.scene{padding-top:72px}.scene-head{grid-template-columns:1fr;gap:18px}.scene-no{width:76px;height:76px}.system-map,.cases{grid-template-columns:1fr}.meter-row{grid-template-columns:1fr}.status{text-align:left}.state{min-height:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<div class="page">
-
-<header>
-  <div class="name"><b>阿茲</b><span class="note">AI 問題解決師 · Arzbar</span></div>
-  <nav aria-label="頁面導覽">
-    <a href="#about">我是誰</a>
-    <a href="#triage">帶問題來</a>
-    <a href="#method">怎麼做</a>
-    <a href="#cases">做過的事</a>
-    <a href="#contact">聯絡</a>
-  </nav>
-</header>
-
-<main>
-<section class="hero" style="padding-top:clamp(40px,7vw,80px)">
-  <div class="identity">AI PROBLEM SOLVER · AI 問題解決師</div>
-  <h1 style="margin-top:18px">你把問題帶來，<br>我把它拆到<mark>AI 真正幫得上忙</mark>。</h1>
-  <p class="intro">我是阿茲。我的工作不是先推薦 ChatGPT、Agent 或自動化工具，而是先判斷：<strong>問題到底卡在哪裡？AI 該不該介入？如果要用，應該放在哪一步才真的省時間、降錯誤、讓工作變順。</strong></p>
-  <div class="ai-signals" aria-label="AI 問題解決方式">
-    <div class="ai-signal"><b>看懂</b><span>把模糊問題拆清楚</span></div>
-    <div class="ai-signal"><b>判斷</b><span>決定 AI 值不值得用</span></div>
-    <div class="ai-signal"><b>落地</b><span>接進流程、資料與系統</span></div>
-  </div>
-
-  <div class="board" aria-label="工作流程整理示意">
-    <div class="board-head">
-      <span class="note">AI 解題白板 · 從問題到可運作的解法</span>
-      <span class="note">拉動下方把手</span>
-    </div>
-    <svg id="wire" viewBox="0 0 1000 360" role="img" aria-label="一條纏繞的問題線，隨整理程度變成一條直線，串起流程、資料、AI、系統四個解題節點"></svg>
-    <div class="control">
-      <label for="tidy">整理程度</label>
-      <input id="tidy" type="range" min="0" max="100" value="0">
-      <span id="readout">0%</span>
-    </div>
-    <p id="caption" aria-live="polite">現在：問題很多，但還不知道 AI 該放哪裡。</p>
-  </div>
-</section>
-
-<section id="about">
-  <div class="letter">
-    <p class="note">我是誰</p>
-    <div class="letter-body">
-      <p class="hello">你好，我是吳政穎，大家都叫我阿茲。<br><mark>我是一個 AI 問題解決師。</mark></p>
-      <p>我的底子是工程：後端、雲端架構、API、資料庫、系統整合、自動化。現在我把這些能力和 AI 放在一起，處理的核心不是「導入某個 AI 工具」，而是把公司的真實問題拆開，找出 AI 最有價值的介入點，再把它接進日常工作。</p>
-      <p>我很少一開口就推薦工具。我會先搞懂事情現在怎麼被完成、哪一步最常出錯，再決定哪裡值得改、哪裡不要動。很多問題理完流程、接好 API 就解了，用不到模型。</p>
-      <div class="habits">
-        <div class="habit"><b>先講清楚</b><p>能做、不能做、哪裡有風險，開工前就說。</p></div>
-        <div class="habit"><b>不硬塞 AI</b><p>流程或整合能解決的，就不額外加模型。</p></div>
-        <div class="habit"><b>要能維護</b><p>Demo 能跑不算完成，要接得進日常工作。</p></div>
-        <div class="habit"><b>看整條線</b><p>從使用者、資料、API 到後端一起看。</p></div>
-      </div>
-      <p class="sign">— 阿茲</p>
-    </div>
-  </div>
-</section>
-
-<section id="triage">
-  <div class="sec-head">
-    <p class="note">帶問題來</p>
-    <h2>先別問「要用哪個 AI」。<br>先看你的問題是哪一種。</h2>
-    <p class="lede">AI 問題解決的第一步不是選模型，是先把問題定義對。點一個看看，我會怎麼問、怎麼判斷，以及 AI 是否真的需要出場。</p>
-  </div>
-  <div class="triage">
-    <div class="chips" id="chips" role="group" aria-label="選一個問題"></div>
-    <div class="sheet" id="sheet" aria-live="polite"></div>
-  </div>
-</section>
-
-<section id="method">
-  <div class="sec-head">
-    <p class="note">怎麼做</p>
-    <h2>AI 問題解決六步法</h2>
-    <p class="lede">我不從工具開始。前三步先把問題、流程與資料看懂，第四步才決定 AI、Automation、API 或既有系統各自該做什麼。</p>
-  </div>
-  <div class="route">
-    <div class="stop"><span class="note">第 1 站</span><b>診斷</b><p>聽懂現場實際怎麼運作。</p></div>
-    <div class="stop"><span class="note">第 2 站</span><b>拆題</b><p>把大問題拆成具體卡點。</p></div>
-    <div class="stop"><span class="note">第 3 站</span><b>畫流程</b><p>標出資料、人和系統的斷點。</p></div>
-    <div class="stop"><span class="note">第 4 站</span><b>選解法</b><p>決定 AI、自動化、系統各放哪。</p></div>
-    <div class="stop"><span class="note">第 5 站</span><b>建置</b><p>API、DB、LINE、n8n 實際接上。</p></div>
-    <div class="stop"><span class="note">第 6 站</span><b>驗證</b><p>測到真的能用，再往外擴。</p></div>
-  </div>
-</section>
-
-<section id="cases">
-  <div class="sec-head">
-    <p class="note">做過的事</p>
-    <h2>AI 解題能力，要看怎麼處理真實現場。</h2>
-    <p class="lede">我不把「用了 AI」當成果。真正的成果，是問題被拆清楚、資訊開始流動、判斷可以被輔助、流程可以持續運作。</p>
-  </div>
-  <div class="cases">
-    <article class="case">
-      <p class="note">跨境支付 × API</p>
-      <div>
-        <h3>多個支付與帳務節點，讓資料自動對上</h3>
-        <div class="flow before"><span class="tag">原本</span><span>超商 EC 給號</span><i>→</i><span>POS</span><i>→</i><span>AML</span><i>→</i><span>帳務系統</span><i>→</i><span>人工核對</span></div>
-        <div class="flow after"><span class="tag">之後</span><span>各節點以 API 與 Callback 串接</span><i>→</i><span>銷帳與狀態自動回傳</span></div>
-        <p class="takeaway">交易要可信、可追、可驗證。</p>
-      </div>
-    </article>
-    <article class="case">
-      <p class="note">旅遊分銷 × 訂位</p>
-      <div>
-        <h3>靠人工處理的同業訂位，變成可管理的分銷流程</h3>
-        <div class="flow before"><span class="tag">原本</span><span>同業來訊</span><i>→</i><span>人工訂位</span><i>→</i><span>資訊分散</span><i>→</i><span>月底手算統計</span></div>
-        <div class="flow after"><span class="tag">之後</span><span>分級分銷與權限</span><i>→</i><span>專屬網址、QR Code</span><i>→</i><span>訂位與統計同一處</span></div>
-        <p class="takeaway">下一步該做什麼，由系統記得。</p>
-      </div>
-    </article>
-    <article class="case">
-      <p class="note">LINE × AI 知識</p>
-      <div>
-        <h3>大量群組訊息，整理成找得到的公司知識</h3>
-        <div class="flow before"><span class="tag">原本</span><span>決策埋在聊天</span><i>→</i><span>待辦靠人記</span><i>→</i><span>新人問不到</span></div>
-        <div class="flow after"><span class="tag">之後</span><span>自動擷取重點與待辦</span><i>→</i><span>每日／每週摘要</span><i>→</i><span>知識持續累積</span></div>
-        <p class="takeaway">AI 在這裡負責讓資訊能用。</p>
-      </div>
-    </article>
-    <article class="case">
-      <p class="note">企業 × 數位整合</p>
-      <div>
-        <h3>工具越加越多，系統不跟著變亂</h3>
-        <div class="flow before"><span class="tag">原本</span><span>多角色</span><i>→</i><span>多份資料</span><i>→</i><span>多套系統各自為政</span></div>
-        <div class="flow after"><span class="tag">之後</span><span>定義需求邊界、資料流、權限</span><i>→</i><span>架構、API、資料庫、工作流一起規劃</span></div>
-        <p class="takeaway">做得出來之外，還要能長期運作。</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section id="tools">
-  <div class="toolbox">
-    <p class="note">AI 解題工具箱</p>
-    <div class="tools">
-      <div><b>串接</b><p>API Integration、Webhook、Callback、LINE OA</p></div>
-      <div><b>自動化</b><p>n8n、AI Workflow、排程與通知</p></div>
-      <div><b>資料</b><p>資料庫設計、資料流整理、報表統計</p></div>
-      <div><b>AI 能力</b><p>理解文字、分類、摘要、知識查詢、判斷輔助、Agent 與 LLM 工作流</p></div>
-      <div><b>後端</b><p>服務開發、權限、雲端架構</p></div>
-      <div><b>最常用的</b><p>一張白板，和很多個「現在是誰在做這件事？」</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="contact">
-  <div class="contact-side">
-    <p><mark>AI 問題解決，從一個真實問題開始。</mark><br>帶一件最卡的事來就好。</p>
-  </div>
-  <div class="card-note">
-    <h2>把問題丟給我，<br>我先幫你判斷怎麼解。</h2>
-    <p>上面只要寫三件事：</p>
-    <ul>
-      <li>這件事現在是怎麼完成的</li>
-      <li>哪一步最花時間、最常出錯</li>
-      <li>如果它順了，你最想得到什麼</li>
-    </ul>
-    <p>不用先決定 ChatGPT、Claude、Agent、n8n 或任何工具。先把問題說清楚，我們再決定 AI 要不要出場。</p>
-    <a class="go" href="https://lin.ee/8PAjp8A" target="_blank" rel="noopener">加 LINE 找阿茲聊聊 →</a>
-  </div>
-</section>
-</main>
-
-<footer>
-  <span class="note">© 2026 阿茲 Arzbar · AI 問題解決師</span>
-  <span class="note">在白板上畫完，才開始寫程式</span>
-</footer>
+<header class="hud"><div class="wrap hud-row">
+<a class="brand" href="#top"><span class="avatar">AZ</span><span>阿茲 Arzbar<small>AI PROBLEM SOLVER</small></span></a>
+<div class="progress-shell" aria-label="頁面閱讀進度"><div id="progress" class="progress"></div></div>
+<a class="hud-cta" href="https://lin.ee/8PAjp8A" target="_blank" rel="noopener">LINE 找阿茲</a>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap">
+<span class="world">WORLD 01 · AI × WORKFLOW</span>
+<div class="hero-grid">
+<div>
+<p class="tag muted">AI 問題解決師 · 阿茲</p>
+<h1>你把問題帶來，<br>我把它拆到<br><span style="color:var(--terra)">AI 真正幫得上忙。</span></h1>
+<p class="hero-copy">我處理的通常不是「要用哪個 AI 工具」，而是<strong>工作到底卡在哪、資料怎麼流、誰在重複做事、哪一步最容易出錯</strong>。把問題拆清楚後，再決定 AI、自動化、API 或系統該放哪裡。</p>
+<div class="hero-actions"><a class="btn primary" href="#scene-1">看我怎麼拆問題 ↓</a><a class="btn" href="https://lin.ee/8PAjp8A" target="_blank" rel="noopener">直接帶問題來</a></div>
 </div>
+<div class="console frame pixel-corners">
+<div class="console-head"><span class="tag">MISSION</span><span class="tag muted">READY</span></div>
+<div class="console-screen"><div class="console-code">INPUT: 卡住的流程<br>SCAN: 資料 / 人 / 系統<br>CHECK: AI 是否必要<br>BUILD: 可運作解法</div><p class="console-title">把混亂<br>整理成<br>能跑的流程。</p></div>
+</div>
+</div></div></section>
 
+<section id="scene-1" class="scene"><div class="wrap">
+<div class="scene-head"><div class="scene-no">STAGE<br>01</div><div><p class="tag muted">OLD → NEW</p><h2>問題通常不是沒工具，<br>是工具之間沒有一條線。</h2><p class="scene-lede">LINE、Excel、表單、後台各自都能用，真正吃人力的是中間那一段：複製、核對、提醒、追進度、補資料。</p></div></div>
+<div class="before-after">
+<article class="state old frame"><p class="tag">BEFORE</p><h3>每天靠人搬資料</h3><div class="stack"><div class="block">LINE 客戶訊息</div><div class="block">Google / 紙本表單</div><div class="block">Excel / Sheet</div><div class="block">後台 / 訂單 / 通知</div></div><p class="result-line">→ 同一件事，四個地方都要記得。</p></article>
+<div class="arrow">→</div>
+<article class="state new frame"><p class="tag">AFTER</p><h3>讓流程自己往下走</h3><div class="stack"><div class="block"><span>客戶進件</span><span>01</span></div><div class="block"><span>資料整理</span><span>02</span></div><div class="block"><span>AI / 規則判斷</span><span>03</span></div><div class="block"><span>通知與回寫</span><span>04</span></div></div><p class="result-line">→ 人只處理真的需要人的部分。</p></article>
+</div></div></section>
+
+<section id="scene-2" class="scene"><div class="wrap">
+<div class="scene-head"><div class="scene-no">STAGE<br>02</div><div><p class="tag muted">CORE + MODULES</p><h2>我不是先選工具，<br>我先把解法拆成六個模組。</h2><p class="scene-lede">工具會一直換，但解題順序很穩定。先看現場，再決定哪一段需要 AI、哪一段只是流程與系統整合。</p></div></div>
+<div class="system-map">
+<article class="module frame"><span class="n">01</span><h3>診斷</h3><p>把「很亂、很忙、很容易漏」拆成具體事件。</p></article>
+<article class="core frame"><div><span class="tag">CORE</span><h3>問題解決</h3><p>AI 是工具，真正要優化的是整條工作流程。</p></div></article>
+<article class="module frame"><span class="n">02</span><h3>流程</h3><p>畫出人、資料、系統現在怎麼互相傳遞。</p></article>
+<article class="module frame"><span class="n">03</span><h3>資料</h3><p>定義來源、欄位、狀態與誰才是正確版本。</p></article>
+<article class="module frame"><span class="n">04</span><h3>AI</h3><p>放在分類、摘要、判斷、知識查詢等真正有價值的位置。</p></article>
+<article class="module frame"><span class="n">05</span><h3>系統串接</h3><p>API、Webhook、LINE OA、n8n、資料庫接成一條線。</p></article>
+<article class="module frame"><span class="n">06</span><h3>驗證</h3><p>從錯誤、例外、人工接手點確認它真的能長期運作。</p></article>
+</div></div></section>
+
+<section id="scene-3" class="scene"><div class="wrap">
+<div class="scene-head"><div class="scene-no">STAGE<br>03</div><div><p class="tag muted">COST OF WORK</p><h2>真正要省的，<br>是每天被重複工作吃掉的注意力。</h2><p class="scene-lede">我不先承諾「省幾成成本」。我會先找出哪一種消耗最重，再把它變成可被系統處理的狀態。</p></div></div>
+<div class="meters frame">
+<div class="meter-row"><div class="meter-label">重複輸入資料</div><div class="meter-track"><span style="width:92%"></span></div><div class="status">HEAVY</div></div>
+<div class="meter-row"><div class="meter-label">人工追進度</div><div class="meter-track"><span style="width:78%"></span></div><div class="status">HEAVY</div></div>
+<div class="meter-row"><div class="meter-label">系統自動同步</div><div class="meter-track good"><span style="width:72%"></span></div><div class="status">BETTER</div></div>
+<div class="meter-row"><div class="meter-label">人處理例外</div><div class="meter-track good"><span style="width:46%"></span></div><div class="status">FOCUS</div></div>
+</div><p class="compare-note">目標不是把人拿掉，而是把人從「搬資料、找資料、記得提醒」移到真正需要判斷與溝通的地方。</p>
+</div></section>
+
+<section id="scene-4" class="scene"><div class="wrap">
+<div class="scene-head"><div class="scene-no">STAGE<br>04</div><div><p class="tag muted">REAL CASES</p><h2>我做過的事，<br>都從一個卡住的流程開始。</h2><p class="scene-lede">不同產業的技術不同，但底層都是同一件事：把資料、狀態與下一步接起來。</p></div></div>
+<div class="cases">
+<article class="case frame"><p class="case-type">PAYMENT × API</p><h3>跨境支付與銷帳</h3><p>把多個交易節點、Callback、AML 與帳務狀態接在一起，讓資料可追、可驗證。</p></article>
+<article class="case frame"><p class="case-type">LINE × WORKFLOW</p><h3>LINE OA 客戶流程</h3><p>從詢問、報名、付款、提醒到後台紀錄，把原本靠人記得的工作交給流程。</p></article>
+<article class="case frame"><p class="case-type">AI × KNOWLEDGE</p><h3>聊天變公司知識</h3><p>從大量訊息擷取重點、待辦與摘要，讓資訊不再只留在聊天紀錄與人腦裡。</p></article>
+<article class="case frame"><p class="case-type">SYSTEM × AUTOMATION</p><h3>小團隊自動化</h3><p>把表單、資料庫、通知與第三方服務串起來，減少每天重複處理的工作。</p></article>
+</div></div></section>
+
+<section class="final"><div class="wrap"><div class="final-card frame pixel-corners"><div class="final-inner">
+<p class="tag">FINAL STAGE · TALK TO ARZBAR</p><h2>不用先想好<br>要不要導 AI。</h2><p>帶一件最卡的事來就好。告訴我現在怎麼做、哪一步最花時間、如果它順了你想得到什麼。我會從問題本身開始拆。</p><a class="btn" href="https://lin.ee/8PAjp8A" target="_blank" rel="noopener">加 LINE 找阿茲聊聊 →</a>
+</div></div></div></section>
+</main>
+<footer class="wrap"><span>© 2026 阿茲 Arzbar · AI 問題解決師</span><span class="tag">PROBLEM → FLOW → SYSTEM → RESULT</span></footer>
 <script>
 (function(){
-  /* ---------- the untangling line ---------- */
-  var svg=document.getElementById('wire'), NS='http://www.w3.org/2000/svg';
-  var slider=document.getElementById('tidy'), readout=document.getElementById('readout'), caption=document.getElementById('caption');
-  var N=40, X0=70, X1=930, Y=200;
-  var nodes=[{i:8,t:'流程'},{i:16,t:'資料'},{i:24,t:'AI'},{i:32,t:'系統'}];
-
-  function straight(i){return [X0+(X1-X0)*i/N, Y];}
-  function tangled(i){
-    var edge=Math.min(1,Math.min(i,N-i)/5);          // endpoints stay pinned
-    var s=straight(i);
-    var tx=500+360*Math.sin(i*0.61+0.5)*Math.cos(i*0.13);
-    var ty=Y+115*Math.sin(i*0.97+1.1)-10*Math.cos(i*0.4);
-    return [s[0]+(tx-s[0])*edge, s[1]+(ty-s[1])*edge];
-  }
-  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
-
-  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);(parent||svg).appendChild(e);return e;}
-  var path=el('path',{'class':'line'});
-  el('circle',{'class':'end',cx:X0,cy:Y,r:9});
-  el('circle',{'class':'end',cx:X1,cy:Y,r:9});
-  el('text',{x:X0+6,y:Y+56,'class':'small'}).textContent='問題';
-  el('text',{x:X1-6,y:Y+56,'class':'small'}).textContent='結果';
-  var nodeEls=nodes.map(function(n){
-    return {n:n,c:el('circle',{'class':'dot',r:11}),t:(function(){var t=el('text',{});t.textContent=n.t;return t;})()};
-  });
-
-  function pathFrom(p){           // Catmull-Rom → cubic Bézier
-    var d='M'+p[0][0].toFixed(1)+' '+p[0][1].toFixed(1);
-    for(var i=0;i<p.length-1;i++){
-      var a=p[i-1]||p[i], b=p[i], c=p[i+1], e=p[i+2]||c;
-      d+=' C'+(b[0]+(c[0]-a[0])/6).toFixed(1)+' '+(b[1]+(c[1]-a[1])/6).toFixed(1)+' '
-             +(c[0]-(e[0]-b[0])/6).toFixed(1)+' '+(c[1]-(e[1]-b[1])/6).toFixed(1)+' '
-             +c[0].toFixed(1)+' '+c[1].toFixed(1);
-    }
-    return d;
-  }
-
-  function draw(pct){
-    var w=ease(pct/100), pts=[];
-    for(var i=0;i<=N;i++){var a=tangled(i),b=straight(i);pts.push([a[0]+(b[0]-a[0])*w,a[1]+(b[1]-a[1])*w]);}
-    path.setAttribute('d',pathFrom(pts));
-    nodeEls.forEach(function(o,k){
-      var p=pts[o.n.i];
-      o.c.setAttribute('cx',p[0]);o.c.setAttribute('cy',p[1]);
-      o.t.setAttribute('x',p[0]);
-      o.t.setAttribute('y',p[1]+(w>.6?-28:(k%2?48:-26)));
-    });
-    readout.textContent=Math.round(pct)+'%';
-    caption.textContent=pct<30?'現在：問題很多，但還不知道 AI 該放哪裡。'
-      :pct<85?'拆解中：先找真正卡點，再判斷 AI、自動化與系統怎麼分工。'
-      :'之後：AI 被放在對的位置，整條工作流才真正跑得動。';
-  }
-  slider.addEventListener('input',function(){draw(+slider.value);});
-
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  draw(0);
-  if(!reduce){                     // one gentle demo on load: untangle to 100
-    var start=null, dur=2600, delay=900, touched=false;
-    slider.addEventListener('pointerdown',function(){touched=true;});
-    slider.addEventListener('keydown',function(){touched=true;});
-    setTimeout(function(){
-      requestAnimationFrame(function step(ts){
-        if(touched)return;
-        if(!start)start=ts;
-        var t=Math.min(1,(ts-start)/dur), v=t*100;
-        slider.value=v;draw(v);
-        if(t<1)requestAnimationFrame(step);
-      });
-    },delay);
-  }
-
-  /* ---------- triage ---------- */
-  var problems=[
-    {k:'重複工作',t:'同一份資料一直複製貼上',
-     feel:'LINE、表單、Excel、後台彼此不通，每天有人在搬資料。',
-     asks:['這份資料最早從哪裡進來？','它要被搬到幾個地方？','搬錯的時候，誰會發現？'],
-     fix:'通常先定一個資料的「源頭」，其他地方用 API 或自動化同步。'},
-    {k:'客戶流程',t:'訊息很多，卻沒有流程',
-     feel:'詢問、報名、付款、預約、提醒、追蹤，全靠人記得。',
-     asks:['客人從第一句話到完成，會經過哪幾步？','哪一步最常漏掉？','現在用什麼記錄進度？'],
-     fix:'把步驟畫成狀態，讓 LINE OA 或表單在每一步自動提醒與回報。'},
-    {k:'系統斷點',t:'工具很多，資料接不起來',
-     feel:'每套系統單獨都能用，中間缺 API、Webhook 或資料庫把它們接起來。',
-     asks:['各系統有沒有開放 API？','哪兩套系統之間最常手動處理？','資料對不上時以誰為準？'],
-     fix:'先接最痛的那一段，用 Webhook 和 Callback 讓狀態自己回傳。'},
-    {k:'AI 導入',t:'想用 AI，不知道放哪',
-     feel:'看到很多 AI 工具，但不確定哪一個真的對你的工作有幫助。',
-     asks:['哪些工作是大量「看了再判斷」？','判斷錯了的代價有多大？','有沒有現成資料可以參考？'],
-     fix:'先判斷需不需要 AI，常見的位置是分類、摘要、客服輔助、知識查詢。'},
-    {k:'知識散落',t:'重要資訊在聊天紀錄和人腦裡',
-     feel:'決策、做法和客戶資訊都在群組裡，要找的時候找不到。',
-     asks:['大家最常重複問的是什麼？','哪些群組的內容最重要？','誰需要看到整理後的結果？'],
-     fix:'自動擷取重點與待辦，做成每日／每週摘要，慢慢累積成可以查的知識。'},
-    {k:'小團隊',t:'人不多，更不能浪費人力',
-     feel:'一人公司、工作室或小團隊，每個人都身兼數職。',
-     asks:['一週裡哪件事最讓你煩？','哪件事只有你會做？','每月可以花多少在工具上？'],
-     fix:'挑一條最常跑的流程，用 n8n 這類工具做輕量自動化，先省下時間。'}
-  ];
-  var chips=document.getElementById('chips'), sheet=document.getElementById('sheet');
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  function show(idx){
-    var p=problems[idx];
-    [].forEach.call(chips.children,function(b,j){b.setAttribute('aria-pressed',j===idx?'true':'false');});
-    sheet.innerHTML='<p class="note">'+esc(p.k)+'</p><h3>'+esc(p.t)+'</h3><dl>'
-      +'<div><dt>你大概遇到的是</dt><dd>'+esc(p.feel)+'</dd></div>'
-      +'<div><dt>我會先問</dt><dd><ol class="asks">'+p.asks.map(function(a){return '<li>'+esc(a)+'</li>';}).join('')+'</ol></dd></div>'
-      +'<div><dt>常見的解法方向</dt><dd class="fix">'+esc(p.fix)+'</dd></div></dl>';
-  }
-  problems.forEach(function(p,i){
-    var b=document.createElement('button');
-    b.type='button';b.className='chip';b.id='chip-'+i;
-    b.innerHTML='<span class="note">'+esc(p.k)+'</span><span>'+esc(p.t)+'</span>';
-    b.addEventListener('click',function(){show(i);});
-    chips.appendChild(b);
-  });
-  show(0);
+var bar=document.getElementById('progress');
+function update(){var doc=document.documentElement,max=doc.scrollHeight-doc.clientHeight,p=max>0?(doc.scrollTop/max)*100:0;bar.style.width=Math.max(0,Math.min(100,p))+'%'}
+update();document.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);
 })();
 </script>
 </body>
