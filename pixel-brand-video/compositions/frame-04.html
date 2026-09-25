@@ -1,0 +1,56 @@
+<template id="frame-04-template">
+  <div id="frame-04" class="frame-scene frame-outro" data-composition-id="frame-04" data-width="1920" data-height="1080" data-duration="7.5">
+    <style>
+      @font-face { font-family: "ArzbarDisplay"; src: local("LXGW WenKai TC"), local("DFKai-SB"); font-style: normal; font-weight: 400 700; }
+      @font-face { font-family: "Microsoft JhengHei"; src: local("Microsoft JhengHei"); font-style: normal; font-weight: 400 900; }
+      .outro-panel { position:absolute; top:260px; left:100px; right:100px; bottom:150px; border:2px solid var(--rule); background:rgba(251,248,242,.78); }
+      .brand-lockup { position:absolute; top:78px; left:88px; display:flex; align-items:center; gap:34px; }
+      .brand-pixel-mark { display:grid; width:108px; height:84px; grid-template-columns:repeat(4,18px); grid-template-rows:repeat(3,18px); gap:10px; transform-origin:center; }
+      .pixel-bit { width:18px; height:18px; background:var(--terra); }
+      .bit-2,.bit-7,.bit-9 { background:var(--ochre); }
+      .bit-4,.bit-10 { background:var(--red); }
+      .bit-3,.bit-8,.bit-11 { background:var(--ink); }
+      .bit-12 { background:var(--surface); }
+      .wordmark-en { margin:0 0 12px; color:var(--terra-text); font-size:18px; letter-spacing:.1em; }
+      #logo-wordmark { margin:0; font-size:88px; line-height:1; letter-spacing:-.04em; }
+      #logo-wordmark span { color:var(--terra); }
+      .outro-divider { position:absolute; top:280px; left:88px; right:88px; height:2px; background:var(--rule); }
+      .outro-tagline { position:absolute; top:345px; left:88px; max-width:850px; margin:0; font-family:"ArzbarDisplay","Microsoft JhengHei",serif; font-size:49px; line-height:1.42; font-weight:700; }
+      .outro-cta { position:absolute; top:360px; right:88px; display:flex; width:505px; height:178px; flex-direction:column; justify-content:center; padding:26px 34px; color:var(--paper); background:var(--ink); }
+      .cta-label { color:var(--surface); font-size:15px; letter-spacing:.08em; }
+      .outro-cta strong { margin-top:13px; font-size:35px; line-height:1.1; }
+      .cta-link { margin-top:10px; color:var(--ochre); font-size:21px; letter-spacing:.035em; }
+      .cta-arrow { position:absolute; top:25px; right:28px; color:var(--ochre); font-size:30px; }
+      .outro-side-note { position:absolute; right:100px; bottom:185px; color:var(--muted); text-align:right; font-size:17px; line-height:1.7; letter-spacing:.03em; }
+    </style>
+    <div class="paper-noise" data-layout-ignore></div>
+    <div class="scene-kicker"><strong>04</strong><span>把問題帶來，一起拆到能解決</span></div>
+    <div class="outro-panel" id="outro-panel">
+      <div class="brand-lockup" id="brand-lockup">
+        <div class="brand-pixel-mark" aria-hidden="true">
+          <span class="pixel-bit bit-1"></span><span class="pixel-bit bit-2"></span><span class="pixel-bit bit-3"></span><span class="pixel-bit bit-4"></span>
+          <span class="pixel-bit bit-5"></span><span class="pixel-bit bit-6"></span><span class="pixel-bit bit-7"></span><span class="pixel-bit bit-8"></span>
+          <span class="pixel-bit bit-9"></span><span class="pixel-bit bit-10"></span><span class="pixel-bit bit-11"></span><span class="pixel-bit bit-12"></span>
+        </div>
+        <div class="wordmark-wrap"><p class="mono wordmark-en">ARZBAR / PROBLEM SOLVING</p><h1 id="logo-wordmark" class="display-type">阿茲 <span>Arzbar</span></h1></div>
+      </div>
+      <div class="outro-divider"></div>
+      <p class="outro-tagline" id="outro-tagline">你把問題帶來，<br />我把它拆到 AI 真正幫得上忙。</p>
+      <div class="outro-cta" id="outro-cta"><span class="cta-label mono">START WITH A REAL PROBLEM</span><strong>加 LINE 聊聊</strong><span class="cta-link mono">lin.ee/8PAjp8A</span><span class="cta-arrow">↗</span></div>
+    </div>
+    <div class="outro-side-note mono">AI 問題解決師<br />診斷 · 拆題 · 建置 · 驗證</div>
+    <p class="scene-caption">把 AI 放進真正用得上的地方。</p>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#outro-panel", { y: 22, opacity: 0, duration: 0.42, ease: "power2.out" }, 0.18);
+      tl.from(".pixel-bit", { scale: 0, opacity: 0, duration: 0.32, stagger: { amount: 0.68, from: "center" }, ease: "back.out(1.8)" }, 0.36);
+      tl.from(".wordmark-en", { y: 18, opacity: 0, duration: 0.42, ease: "power2.out" }, 0.72);
+      tl.from("#logo-wordmark", { y: 36, opacity: 0, duration: 0.68, ease: "back.out(1.35)" }, 0.92);
+      tl.from("#outro-tagline", { x: -22, opacity: 0, duration: 0.56, ease: "power3.out" }, 2.05);
+      tl.from("#outro-cta", { x: 24, opacity: 0, duration: 0.54, ease: "power3.out" }, 2.72);
+      tl.to(".brand-pixel-mark", { rotation: 90, duration: 1.2, ease: "sine.inOut" }, 4.1);
+      tl.to("#logo-wordmark", { scale: 1.018, duration: 1.25, yoyo: true, repeat: 1, ease: "sine.inOut" }, 4.15);
+      window.__timelines["frame-04"] = tl;
+    </script>
+  </div>
+</template>

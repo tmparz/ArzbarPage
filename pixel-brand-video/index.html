@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>阿茲 Arzbar — Pixel Brand Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "ArzbarSans"; src: local("Noto Sans TC"), local("Microsoft JhengHei"); font-style: normal; font-weight: 400 900; }
+      @font-face { font-family: "ArzbarDisplay"; src: local("LXGW WenKai TC"), local("DFKai-SB"); font-style: normal; font-weight: 400 700; }
+      @font-face { font-family: "ArzbarMono"; src: local("Martian Mono"), local("Cascadia Mono"), local("Consolas"); font-style: normal; font-weight: 400 700; }
+      @font-face { font-family: "Microsoft JhengHei"; src: local("Microsoft JhengHei"); font-style: normal; font-weight: 400 900; }
+      @font-face { font-family: "Cascadia Mono"; src: local("Cascadia Mono"), local("Consolas"); font-style: normal; font-weight: 400 700; }
+      @font-face { font-family: "Microsoft JhengHei"; src: local("Microsoft JhengHei"); font-style: normal; font-weight: 400 900; }
+      @font-face { font-family: "Cascadia Mono"; src: local("Cascadia Mono"), local("Consolas"); font-style: normal; font-weight: 400 700; }
+      :root { --paper:#f5efe6; --surface:#eadfd2; --ink:#30251f; --muted:#78685d; --rule:#d7c5b4; --terra:#b85f3c; --terra-text:#843b2a; --ochre:#e6c66b; --red:#b55248; }
+      * { box-sizing:border-box; }
+      html,body { width:1920px; height:1080px; margin:0; overflow:hidden; background:var(--paper); color:var(--ink); font-family:"ArzbarSans","Microsoft JhengHei",sans-serif; }
+      #root { position:relative; width:100%; height:100%; overflow:hidden; background:var(--paper); }
+      [data-composition-id="main"] > [data-composition-src] { position:absolute; inset:0; width:100%; height:100%; }
+      .brand-hud { position:absolute; z-index:20; top:50px; left:100px; right:100px; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font:700 20px/1 "ArzbarMono",monospace; letter-spacing:.08em; pointer-events:none; }
+      .brand-hud .wordmark-small { color:var(--ink); letter-spacing:.02em; }
+      .brand-hud .hud-right { display:flex; align-items:center; gap:18px; }
+      .hud-square { width:14px; height:14px; background:var(--terra); }
+      .pixel-overlay { position:absolute; z-index:100; inset:0; display:grid; grid-template-columns:repeat(16,1fr); grid-template-rows:repeat(9,1fr); opacity:0; pointer-events:none; }
+      .pixel-overlay .grid-cell { background:var(--terra); }
+      .frame-scene { position:relative; width:100%; height:100%; overflow:hidden; background:var(--paper); }
+      .frame-scene::before { position:absolute; top:138px; left:100px; right:100px; height:2px; background:var(--rule); content:""; }
+      .scene-kicker { position:absolute; top:168px; left:100px; display:flex; align-items:center; gap:16px; color:var(--muted); font:700 22px/1 "ArzbarMono",monospace; letter-spacing:.06em; }
+      .scene-kicker strong { display:grid; width:40px; height:40px; place-items:center; color:var(--paper); background:var(--ink); font:700 18px/1 "ArzbarMono",monospace; }
+      .scene-caption { position:absolute; bottom:58px; left:100px; color:var(--muted); font:700 20px/1.2 "ArzbarMono",monospace; letter-spacing:.04em; }
+      .paper-noise { position:absolute; inset:0; opacity:.16; background-image:radial-gradient(#78685d .8px,transparent .8px); background-size:17px 17px; pointer-events:none; }
+      .pixel-square { display:block; width:18px; height:18px; background:var(--terra); }
+      .eyebrow { color:var(--terra-text); font:700 22px/1.2 "ArzbarMono",monospace; letter-spacing:.08em; }
+      .display-type { font-family:"ArzbarDisplay","Microsoft JhengHei",serif; }
+      .mono { font-family:"ArzbarMono","Cascadia Mono",monospace; }
+      .route-line { fill:none; stroke:var(--terra); stroke-width:4; stroke-linecap:square; }
+      .flow-card { position:absolute; display:flex; flex-direction:column; justify-content:space-between; padding:24px 28px; border:2px solid var(--rule); background:#fbf8f2; box-shadow:9px 9px 0 rgba(48,37,31,.08); }
+      .flow-card .card-label { color:var(--muted); font:700 18px/1 "ArzbarMono",monospace; letter-spacing:.07em; }
+      .flow-card strong { font-size:31px; line-height:1.16; }
+      .flow-card .card-mark { align-self:flex-end; width:14px; height:14px; background:var(--ochre); }
+      .step-number { color:var(--terra-text); }
+      .solution-node .node-symbol { color:var(--terra-text); }
+      .wordmark-en { color:var(--terra-text); }
+      #logo-wordmark span { color:var(--terra-text); }
+      .headline { margin:0; font-size:82px; line-height:1.13; letter-spacing:-.035em; font-weight:900; }
+      .subcopy { color:var(--muted); font-size:31px; line-height:1.45; }
+      .fine-rule { height:2px; background:var(--rule); }
+      .problem-copy { position:absolute; z-index:2; top:292px; left:100px; width:690px; }
+      .problem-copy .eyebrow { margin:0 0 24px; }
+      .problem-copy .headline { display:flex; flex-direction:column; gap:3px; font-size:88px; }
+      .problem-copy .subcopy { margin:30px 0 0; max-width:650px; }
+      .resolve-line { display:flex; align-items:center; gap:16px; margin-top:36px; color:var(--ink); font-size:28px; font-weight:800; opacity:0; }
+      .problem-diagram { position:absolute; top:245px; left:850px; width:900px; height:650px; }
+      .problem-wires { position:absolute; inset:0; width:100%; height:100%; }
+      .card-line { left:55px; top:44px; width:315px; height:148px; }
+      .card-sheet { left:535px; top:55px; width:310px; height:148px; }
+      .card-system { left:64px; top:355px; width:325px; height:148px; }
+      .card-api { left:535px; top:370px; width:310px; height:148px; }
+      .problem-knot { position:absolute; left:365px; top:250px; width:112px; height:112px; }
+      .problem-knot span { position:absolute; display:block; width:82px; height:18px; background:var(--red); transform-origin:center; }
+      .problem-knot span:nth-child(1) { top:18px; left:8px; }
+      .problem-knot span:nth-child(2) { top:39px; left:20px; background:var(--terra); }
+      .problem-knot span:nth-child(3) { top:56px; left:6px; background:var(--ochre); }
+      .problem-knot span:nth-child(4) { top:75px; left:22px; }
+      .question-chip { position:absolute; left:245px; top:535px; display:flex; align-items:center; gap:20px; width:490px; padding:20px 24px; border:2px solid var(--terra); background:var(--paper); opacity:0; }
+      .question-chip .mono { color:var(--terra); font-size:17px; letter-spacing:.08em; }
+      .question-chip strong { font-size:26px; }
+      .steps-heading { position:absolute; top:257px; left:100px; }
+      .steps-heading .eyebrow { margin:0 0 18px; }
+      .steps-heading .headline { font-size:72px; }
+      .steps-heading .subcopy { margin:18px 0 0; }
+      .steps-connector { position:absolute; top:495px; left:110px; width:1700px; height:250px; }
+      .steps-row { position:absolute; top:505px; left:110px; right:110px; display:grid; grid-template-columns:repeat(6,1fr); gap:18px; }
+      .step-card { position:relative; display:flex; min-height:275px; flex-direction:column; justify-content:space-between; padding:28px 22px 26px; border:2px solid var(--rule); background:#fbf8f2; box-shadow:7px 8px 0 rgba(48,37,31,.06); }
+      .step-number { color:var(--terra); font:700 22px/1 "ArzbarMono",monospace; letter-spacing:.08em; }
+      .step-card strong { margin-top:30px; font-size:36px; line-height:1.1; }
+      .step-card small { color:var(--muted); font-size:20px; line-height:1.3; }
+      .step-dot { position:absolute; top:132px; left:calc(50% - 10px); width:20px; height:20px; border:4px solid var(--paper); border-radius:50%; background:var(--terra); box-shadow:0 0 0 2px var(--terra); }
+      .step-02 .step-dot,.step-05 .step-dot { background:var(--ochre); box-shadow:0 0 0 2px var(--ochre); }
+      .steps-footnote { position:absolute; top:845px; left:110px; display:flex; align-items:center; gap:14px; color:var(--muted); font-size:25px; font-weight:700; }
+      .steps-footnote .pixel-square { width:16px; height:16px; }
+      .routes-copy { position:absolute; z-index:2; top:292px; left:100px; width:670px; }
+      .routes-copy .eyebrow { margin:0 0 22px; }
+      .routes-copy .headline { display:flex; flex-direction:column; font-size:74px; }
+      .routes-copy .subcopy { margin:26px 0 0; max-width:630px; }
+      .route-note { display:flex; align-items:center; gap:14px; margin-top:34px; color:var(--ink); font-size:25px; font-weight:800; }
+      .solution-map { position:absolute; top:220px; left:830px; width:900px; height:700px; }
+      .solution-wires { position:absolute; inset:0; width:100%; height:100%; }
+      .decision-hub { position:absolute; left:365px; top:257px; display:flex; width:220px; height:220px; flex-direction:column; justify-content:center; align-items:center; border:3px solid var(--terra); border-radius:50%; background:var(--paper); text-align:center; }
+      .decision-hub .mono { color:var(--muted); font-size:16px; letter-spacing:.12em; }
+      .decision-hub strong { margin-top:10px; font-size:37px; line-height:1.12; }
+      .decision-hub i { position:absolute; inset:-16px; border:2px solid rgba(184,95,60,.3); border-radius:50%; }
+      .solution-node { position:absolute; display:grid; grid-template-columns:62px 1fr; grid-template-rows:1fr 1fr; align-items:center; column-gap:16px; width:270px; height:148px; padding:18px 20px; border:2px solid var(--rule); background:#fbf8f2; box-shadow:8px 8px 0 rgba(48,37,31,.07); }
+      .solution-node .node-symbol { grid-row:1 / 3; display:grid; width:58px; height:58px; place-items:center; background:var(--surface); color:var(--terra); font:800 19px/1 "ArzbarMono",monospace; }
+      .solution-node strong { align-self:end; font-size:27px; line-height:1.1; }
+      .solution-node small { align-self:start; margin-top:7px; color:var(--muted); font-size:18px; }
+      .node-ai { left:28px; top:30px; }
+      .node-auto { left:610px; top:30px; }
+      .node-api { left:28px; top:520px; }
+      .node-system { left:610px; top:520px; }
+      .outro-panel { position:absolute; top:260px; left:100px; right:100px; bottom:150px; border:2px solid var(--rule); background:rgba(251,248,242,.78); }
+      .brand-lockup { position:absolute; top:78px; left:88px; display:flex; align-items:center; gap:34px; }
+      .brand-pixel-mark { display:grid; width:108px; height:84px; grid-template-columns:repeat(4,18px); grid-template-rows:repeat(3,18px); gap:10px; transform-origin:center; }
+      .pixel-bit { width:18px; height:18px; background:var(--terra); }
+      .bit-2,.bit-7,.bit-9 { background:var(--ochre); }
+      .bit-4,.bit-10 { background:var(--red); }
+      .bit-3,.bit-8,.bit-11 { background:var(--ink); }
+      .bit-12 { background:var(--surface); }
+      .wordmark-en { margin:0 0 12px; color:var(--terra); font-size:18px; letter-spacing:.1em; }
+      #logo-wordmark { margin:0; font-size:88px; line-height:1; letter-spacing:-.04em; }
+      #logo-wordmark span { color:var(--terra); }
+      .outro-divider { position:absolute; top:280px; left:88px; right:88px; height:2px; background:var(--rule); }
+      .outro-tagline { position:absolute; top:345px; left:88px; max-width:850px; margin:0; font-family:"ArzbarDisplay","Microsoft JhengHei",serif; font-size:49px; line-height:1.42; font-weight:700; }
+      .outro-cta { position:absolute; top:360px; right:88px; display:flex; width:505px; height:178px; flex-direction:column; justify-content:center; padding:26px 34px; color:var(--paper); background:var(--ink); }
+      .cta-label { color:var(--surface); font-size:15px; letter-spacing:.08em; }
+      .outro-cta strong { margin-top:13px; font-size:35px; line-height:1.1; }
+      .cta-link { margin-top:10px; color:var(--ochre); font-size:21px; letter-spacing:.035em; }
+      .cta-arrow { position:absolute; top:25px; right:28px; color:var(--ochre); font-size:30px; }
+      .outro-side-note { position:absolute; right:120px; bottom:185px; color:var(--muted); text-align:right; font-size:17px; line-height:1.7; letter-spacing:.03em; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-duration="30">
+      <div id="frame-01-slot" data-composition-id="frame-01" data-composition-src="compositions/frame-01.html" data-start="0" data-duration="7.5" data-track-index="0"></div>
+      <div id="frame-02-slot" data-composition-id="frame-02" data-composition-src="compositions/frame-02.html" data-start="7.5" data-duration="7.5" data-track-index="0"></div>
+      <div id="frame-03-slot" data-composition-id="frame-03" data-composition-src="compositions/frame-03.html" data-start="15" data-duration="7.5" data-track-index="0"></div>
+      <div id="frame-04-slot" data-composition-id="frame-04" data-composition-src="compositions/frame-04.html" data-start="22.5" data-duration="7.5" data-track-index="0"></div>
+      <audio id="bgm" src="audio/raw/bgm_175.mp3" data-start="0" data-duration="30" data-track-index="10" data-volume="0.28"></audio>
+      <audio id="sfx-diagnosis" src="audio/sfx/2631.mp3" data-start="5.65" data-duration="1.13" data-track-index="11" data-volume="0.34"></audio>
+      <audio id="sfx-wipe-1" src="audio/sfx/2634.mp3" data-start="7.02" data-duration="1.15" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="sfx-whoosh-2" src="audio/sfx/1490.mp3" data-start="14.55" data-duration="1.1" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="sfx-wipe-2" src="audio/sfx/2634.mp3" data-start="14.55" data-duration="1.15" data-track-index="11" data-volume="0.26"></audio>
+      <audio id="sfx-step-1" src="audio/sfx/2568.mp3" data-start="8.02" data-duration="0.2" data-track-index="13" data-volume="0.24"></audio>
+      <audio id="sfx-step-2" src="audio/sfx/2568.mp3" data-start="8.82" data-duration="0.2" data-track-index="13" data-volume="0.24"></audio>
+      <audio id="sfx-step-3" src="audio/sfx/2568.mp3" data-start="9.62" data-duration="0.2" data-track-index="13" data-volume="0.24"></audio>
+      <audio id="sfx-step-4" src="audio/sfx/2568.mp3" data-start="10.42" data-duration="0.2" data-track-index="13" data-volume="0.24"></audio>
+      <audio id="sfx-step-5" src="audio/sfx/2568.mp3" data-start="11.22" data-duration="0.2" data-track-index="13" data-volume="0.24"></audio>
+      <audio id="sfx-step-6" src="audio/sfx/2568.mp3" data-start="12.02" data-duration="0.2" data-track-index="13" data-volume="0.24"></audio>
+      <audio id="sfx-route-1" src="audio/sfx/3124.mp3" data-start="16.35" data-duration="0.5" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-route-2" src="audio/sfx/3124.mp3" data-start="17.15" data-duration="0.5" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-route-3" src="audio/sfx/3124.mp3" data-start="17.95" data-duration="0.5" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-route-4" src="audio/sfx/3124.mp3" data-start="18.75" data-duration="0.5" data-track-index="14" data-volume="0.22"></audio>
+      <audio id="sfx-whoosh-3" src="audio/sfx/1490.mp3" data-start="22.05" data-duration="1.1" data-track-index="12" data-volume="0.2"></audio>
+      <audio id="sfx-brand-reveal" src="audio/sfx/2350.mp3" data-start="23.15" data-duration="1.7" data-track-index="15" data-volume="0.3"></audio>
+      <audio id="sfx-final-click" src="audio/sfx/2568.mp3" data-start="27.0" data-duration="0.2" data-track-index="13" data-volume="0.18"></audio>
+      <!-- Adapted from the installed grid-pixelate-wipe registry component; Arzbar terracotta palette. -->
+      <div id="grid-pixelate-overlay" class="pixel-overlay" data-layout-ignore aria-hidden="true"></div>
+    </div>
+    <script>
+      (function makePixelGrid() {
+        const overlay = document.getElementById("grid-pixelate-overlay");
+        for (let i = 0; i < 16 * 9; i++) {
+          const cell = document.createElement("div");
+          cell.className = "grid-cell";
+          overlay.appendChild(cell);
+        }
+      })();
+      const main = gsap.timeline({ paused: true });
+      const cells = "#grid-pixelate-overlay .grid-cell";
+      main.set(cells, { scale: 0 }, 0);
+      [7.5, 15, 22.5].forEach((cut) => {
+        const coverAt = cut - 0.52;
+        main.set("#grid-pixelate-overlay", { opacity: 1 }, coverAt);
+        main.to(cells, { scale: 1, duration: 0.12, stagger: { amount: 0.38, from: "center" }, ease: "steps(1)" }, coverAt);
+        main.to(cells, { scale: 0, duration: 0.12, stagger: { amount: 0.38, from: "edges" }, ease: "steps(1)" }, cut);
+        main.set("#grid-pixelate-overlay", { opacity: 0 }, cut + 0.51);
+      });
+      window.__timelines["main"] = main;
+    </script>
+  </body>
+</html>

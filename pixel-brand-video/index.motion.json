@@ -1,0 +1,12 @@
+{
+  "duration": 30,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#brand-headline", "bySec": 0.9 },
+    { "kind": "appearsBy", "selector": "#step-06", "bySec": 12.2 },
+    { "kind": "before", "a": "#step-01", "b": "#step-06" },
+    { "kind": "before", "a": "#decision-hub", "b": "#route-api" },
+    { "kind": "appearsBy", "selector": "#logo-wordmark", "bySec": 24.2 },
+    { "kind": "staysInFrame", "selector": "#logo-wordmark" },
+    { "kind": "keepsMoving", "withinSelector": "#root", "maxStaticSec": 2.2 }
+  ]
+}

@@ -1,0 +1,64 @@
+<template id="frame-01-template">
+  <div id="frame-01" class="frame-scene" data-composition-id="frame-01" data-width="1920" data-height="1080" data-duration="7.5">
+    <style>
+      @font-face { font-family: "ArzbarDisplay"; src: local("LXGW WenKai TC"), local("DFKai-SB"); font-style: normal; font-weight: 400 700; }
+      @font-face { font-family: "Microsoft JhengHei"; src: local("Microsoft JhengHei"); font-style: normal; font-weight: 400 900; }
+      .problem-copy { position:absolute; z-index:2; top:292px; left:100px; width:690px; }
+      .problem-copy .eyebrow { margin:0 0 24px; }
+      .problem-copy .headline { display:flex; flex-direction:column; gap:3px; font-size:88px; }
+      .problem-copy .subcopy { margin:30px 0 0; max-width:650px; }
+      .problem-copy .subcopy br { display:block; }
+      .resolve-line { display:flex; align-items:center; gap:16px; margin-top:36px; color:var(--ink); font-size:28px; font-weight:800; opacity:0; }
+      .problem-diagram { position:absolute; top:245px; left:850px; width:900px; height:650px; }
+      .problem-wires { position:absolute; inset:0; width:100%; height:100%; }
+      .card-line { left:55px; top:44px; width:315px; height:148px; }
+      .card-sheet { left:535px; top:55px; width:310px; height:148px; }
+      .card-system { left:64px; top:355px; width:325px; height:148px; }
+      .card-api { left:535px; top:370px; width:310px; height:148px; }
+      .problem-knot { position:absolute; left:365px; top:250px; width:112px; height:112px; }
+      .problem-knot span { position:absolute; display:block; width:82px; height:18px; background:var(--red); transform-origin:center; }
+      .problem-knot span:nth-child(1) { top:18px; left:8px; transform:rotate(45deg); }
+      .problem-knot span:nth-child(2) { top:39px; left:20px; transform:rotate(-38deg); background:var(--terra); }
+      .problem-knot span:nth-child(3) { top:56px; left:6px; transform:rotate(28deg); background:var(--ochre); }
+      .problem-knot span:nth-child(4) { top:75px; left:22px; transform:rotate(-52deg); }
+      .question-chip { position:absolute; left:245px; top:535px; display:flex; align-items:center; gap:20px; width:490px; padding:20px 24px; border:2px solid var(--terra); background:var(--paper); opacity:0; }
+      .question-chip .mono { color:var(--terra); font-size:17px; letter-spacing:.08em; }
+      .question-chip strong { font-size:26px; }
+    </style>
+    <div class="paper-noise" data-layout-ignore></div>
+    <div class="scene-kicker"><strong>01</strong><span>先找出問題卡在哪</span></div>
+    <div class="problem-copy">
+      <p class="eyebrow hook-line">工作卡住時</p>
+      <h1 id="brand-headline" class="headline display-type hook-line"><span>工具越多，</span><span>流程更亂？</span></h1>
+      <p class="subcopy hook-line">LINE、表格、系統各走各的，<br />先別急著再加一個工具。</p>
+      <div class="resolve-line" id="resolve-line"><span class="pixel-square"></span><span>先找到真正卡住的位置。</span></div>
+    </div>
+    <div class="problem-diagram" id="problem-diagram">
+      <svg class="problem-wires" viewBox="0 0 900 650" aria-hidden="true" data-layout-ignore>
+        <path class="route-line wire-a" d="M140 135 C300 135 300 260 440 285" />
+        <path class="route-line wire-b" d="M720 160 C600 160 600 250 455 285" />
+        <path class="route-line wire-c" d="M185 475 C300 475 310 350 440 315" />
+        <path class="route-line wire-d" d="M735 470 C610 470 610 350 455 315" />
+      </svg>
+      <article class="flow-card tool-card card-line"><span class="card-label">MESSAGES</span><strong>LINE 訊息</strong><span class="card-mark"></span></article>
+      <article class="flow-card tool-card card-sheet"><span class="card-label">SPREADSHEET</span><strong>試算表</strong><span class="card-mark"></span></article>
+      <article class="flow-card tool-card card-system"><span class="card-label">WORKFLOW</span><strong>人工流程</strong><span class="card-mark"></span></article>
+      <article class="flow-card tool-card card-api"><span class="card-label">INTEGRATION</span><strong>API / 系統</strong><span class="card-mark"></span></article>
+      <div class="problem-knot" id="problem-knot" data-layout-ignore><span></span><span></span><span></span><span></span></div>
+      <div class="question-chip" id="problem-question"><span class="mono">ROOT CAUSE</span><strong>真正的問題在哪？</strong></div>
+    </div>
+    <p class="scene-caption">診斷，從看清楚現況開始。</p>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#problem-knot", { rotation: -8 }, 0);
+      tl.from(".hook-line", { y: 42, opacity: 0, duration: 0.58, stagger: 0.14, ease: "power3.out" }, 0.28);
+      tl.from(".tool-card", { y: 34, scale: 0.92, opacity: 0, duration: 0.52, stagger: 0.16, ease: "back.out(1.35)" }, 1.18);
+      tl.fromTo(".route-line", { strokeDasharray: 900, strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.78, stagger: 0.1, ease: "power2.inOut" }, 1.55);
+      tl.fromTo("#problem-knot", { scale: 0.35, opacity: 0 }, { scale: 1, opacity: 0.82, duration: 0.62, ease: "elastic.out(1, 0.55)" }, 2.75);
+      tl.to("#problem-knot", { rotation: 9, duration: 0.42, yoyo: true, repeat: 1, ease: "sine.inOut" }, 4.05);
+      tl.fromTo("#problem-question", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.52, ease: "power3.out" }, 5.12);
+      tl.fromTo("#resolve-line", { x: -22, opacity: 0 }, { x: 0, opacity: 1, duration: 0.48, ease: "power2.out" }, 5.72);
+      window.__timelines["frame-01"] = tl;
+    </script>
+  </div>
+</template>

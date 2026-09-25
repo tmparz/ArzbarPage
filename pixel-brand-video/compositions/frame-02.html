@@ -1,0 +1,52 @@
+<template id="frame-02-template">
+  <div id="frame-02" class="frame-scene frame-steps" data-composition-id="frame-02" data-width="1920" data-height="1080" data-duration="7.5">
+    <style>
+      .steps-heading { position:absolute; top:257px; left:100px; }
+      .steps-heading .eyebrow { margin:0 0 18px; }
+      .steps-heading .headline { font-size:72px; }
+      .steps-heading .subcopy { margin:18px 0 0; }
+      .steps-connector { position:absolute; top:495px; left:110px; width:1700px; height:250px; }
+      .steps-row { position:absolute; top:505px; left:110px; right:110px; display:grid; grid-template-columns:repeat(6,1fr); gap:18px; }
+      .step-card { position:relative; display:flex; min-height:275px; flex-direction:column; justify-content:space-between; padding:28px 22px 26px; border:2px solid var(--rule); background:#fbf8f2; box-shadow:7px 8px 0 rgba(48,37,31,.06); }
+      .step-card:nth-child(2),.step-card:nth-child(5) { margin-top:40px; }
+      .step-number { color:var(--terra); font:700 22px/1 "ArzbarMono",monospace; letter-spacing:.08em; }
+      .step-card strong { margin-top:30px; font-size:36px; line-height:1.1; }
+      .step-card small { color:var(--muted); font-size:20px; line-height:1.3; }
+      .step-dot { position:absolute; top:132px; left:calc(50% - 10px); width:20px; height:20px; border:4px solid var(--paper); border-radius:50%; background:var(--terra); box-shadow:0 0 0 2px var(--terra); }
+      .step-02 .step-dot,.step-05 .step-dot { background:var(--ochre); box-shadow:0 0 0 2px var(--ochre); }
+      .steps-footnote { position:absolute; top:845px; left:110px; display:flex; align-items:center; gap:14px; color:var(--muted); font-size:25px; font-weight:700; }
+      .steps-footnote .pixel-square { width:16px; height:16px; }
+    </style>
+    <div class="paper-noise" data-layout-ignore></div>
+    <div class="scene-kicker"><strong>02</strong><span>把問題拆成可以前進的步驟</span></div>
+    <div class="steps-heading">
+      <p class="eyebrow step-intro">阿茲的六步方法</p>
+      <h2 id="steps-headline" class="headline display-type step-intro">從診斷，走到驗證。</h2>
+      <p class="subcopy step-intro">每一步都為了讓解法真正接得上工作。</p>
+    </div>
+    <svg class="steps-connector" viewBox="0 0 1700 250" aria-hidden="true" data-layout-ignore>
+      <path d="M80 140 H1620" fill="none" stroke="#d7c5b4" stroke-width="6" stroke-linecap="square" />
+      <path id="steps-route-accent" d="M80 140 H1620" fill="none" stroke="#b85f3c" stroke-width="6" stroke-linecap="square" />
+    </svg>
+    <div class="steps-row">
+      <article id="step-01" class="step-card step-01"><span class="step-number">01</span><span class="step-dot"></span><strong>診斷</strong><small>看清真正卡點</small></article>
+      <article id="step-02" class="step-card step-02"><span class="step-number">02</span><span class="step-dot"></span><strong>拆題</strong><small>整理需求與限制</small></article>
+      <article id="step-03" class="step-card step-03"><span class="step-number">03</span><span class="step-dot"></span><strong>畫流程</strong><small>把前後關係畫清楚</small></article>
+      <article id="step-04" class="step-card step-04"><span class="step-number">04</span><span class="step-dot"></span><strong>選解法</strong><small>挑適合的工具</small></article>
+      <article id="step-05" class="step-card step-05"><span class="step-number">05</span><span class="step-dot"></span><strong>建置</strong><small>接進實際工作</small></article>
+      <article id="step-06" class="step-card step-06"><span class="step-number">06</span><span class="step-dot"></span><strong>驗證</strong><small>確認真的可用</small></article>
+    </div>
+    <div class="steps-footnote"><span class="pixel-square"></span><span>不是做完 Demo 就結束，而是確認它能不能在現場運作。</span></div>
+    <p class="scene-caption">診斷 → 拆題 → 畫流程 → 選解法 → 建置 → 驗證</p>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set(".step-dot", { scale: 0.7 }, 0);
+      tl.from(".step-intro", { y: 35, opacity: 0, duration: 0.55, stagger: 0.15, ease: "power3.out" }, 0.24);
+      tl.fromTo("#steps-route-accent", { strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 2.7, ease: "power2.inOut" }, 0.9);
+      tl.from(".step-card", { y: 46, scale: 0.9, opacity: 0, duration: 0.54, stagger: 0.43, ease: "back.out(1.4)" }, 1.05);
+      tl.from(".steps-footnote", { y: 20, opacity: 0, duration: 0.46, ease: "power2.out" }, 5.3);
+      tl.to(".step-dot", { scale: 1.18, duration: 0.25, stagger: { each: 0.2, from: "start" }, yoyo: true, repeat: 1, ease: "sine.inOut" }, 5.5);
+      window.__timelines["frame-02"] = tl;
+    </script>
+  </div>
+</template>
