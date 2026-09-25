@@ -1,51 +1,236 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>阿茲 Arzbar｜AI 問題解決師</title>
-<meta name="description" content="從企業真正的工作問題出發，拆解流程、導入 AI、自動化與系統整合，打造真正能運作的工作流。">
+<meta name="description" content="從企業真正的工作問題出發，拆解流程、找出卡點，再用 AI、自動化、API 與系統整合，把問題做成真正能運作的解決方案。">
 <style>
-:root{--bg:#07111f;--card:#0d1b2e;--text:#f4f7fb;--muted:#a8b4c5;--line:#20334c;--accent:#7dd3fc;--accent2:#a7f3d0}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 10%,#123256 0,transparent 30%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.75}
-a{color:inherit;text-decoration:none}.wrap{max-width:1120px;margin:auto;padding:0 24px}
-nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}.brand{font-weight:800;letter-spacing:.04em}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:14px}
-.hero{min-height:78vh;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding:70px 0 100px}
-.kicker{color:var(--accent);font-weight:700;letter-spacing:.12em;font-size:13px;text-transform:uppercase}
-h1{font-size:clamp(46px,7vw,86px);line-height:1.04;margin:16px 0 24px;letter-spacing:-.04em}.lead{font-size:20px;color:#d5deea;max-width:720px}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}.btn{padding:13px 20px;border-radius:10px;border:1px solid var(--line);font-weight:700}.btn.primary{background:var(--text);color:#07111f}
-.hero-card{border:1px solid var(--line);border-radius:24px;padding:30px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));box-shadow:0 24px 80px rgba(0,0,0,.3)}.hero-card b{font-size:22px}.flow{display:grid;gap:12px;margin-top:24px}.flow span{padding:13px 16px;background:#0b1728;border:1px solid var(--line);border-radius:10px;color:#dce7f4}
-section{padding:90px 0;border-top:1px solid rgba(255,255,255,.07)}h2{font-size:clamp(32px,4vw,52px);line-height:1.15;margin:0 0 18px}.section-lead{color:var(--muted);max-width:760px;margin-bottom:42px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}.card h3{margin:0 0 10px;font-size:20px}.card p{color:var(--muted);margin:0}
-.problem{font-size:clamp(25px,3.4vw,42px);max-width:900px;line-height:1.4}.problem em{color:var(--accent2);font-style:normal}
-.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.step{padding:20px 14px;border:1px solid var(--line);border-radius:14px;background:#0b1728}.num{color:var(--accent);font-weight:800;font-size:12px}.step b{display:block;margin-top:8px}
-.case{display:grid;grid-template-columns:1fr 1fr;gap:18px}.case .card{min-height:180px}
-.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px}.portrait{aspect-ratio:4/5;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#173250,#0b1728);display:flex;align-items:end;padding:28px}.portrait strong{font-size:34px}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.tag{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:#cbd7e5;font-size:13px}
-.final{text-align:center;padding:110px 0}.final p{color:var(--muted);font-size:18px}footer{padding:28px 0 44px;color:#72839a;font-size:13px;border-top:1px solid rgba(255,255,255,.07)}
-@media(max-width:800px){.navlinks{display:none}.hero,.about{grid-template-columns:1fr}.hero{padding-top:35px}.grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.case{grid-template-columns:1fr}.hero-card{order:-1}}
+:root{
+  --bg:#07111f;--card:#0d1b2e;--card2:#0a1626;--text:#f4f7fb;--muted:#9eacc0;
+  --line:#20334c;--accent:#7dd3fc;--accent2:#a7f3d0;--warm:#f8fafc;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:
+  radial-gradient(circle at 85% 8%,#123256 0,transparent 29%),
+  radial-gradient(circle at 8% 48%,rgba(16,185,129,.08),transparent 24%),
+  var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.75}
+a{color:inherit;text-decoration:none}.wrap{max-width:1140px;margin:auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative;z-index:5}
+.brand{font-weight:850;letter-spacing:.04em}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:14px;align-items:center}
+.nav-cta{border:1px solid var(--line);padding:8px 13px;border-radius:9px;color:var(--text)}
+.hero{min-height:82vh;display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center;padding:72px 0 96px}
+.kicker{color:var(--accent);font-weight:800;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
+h1{font-size:clamp(46px,7vw,82px);line-height:1.04;margin:16px 0 24px;letter-spacing:-.045em}
+h2{font-size:clamp(32px,4vw,52px);line-height:1.15;margin:0 0 18px;letter-spacing:-.025em}
+h3{line-height:1.35}.lead{font-size:20px;color:#d5deea;max-width:760px}
+.hero .lead strong{color:var(--accent2);font-weight:750}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:10px;border:1px solid var(--line);font-weight:800;transition:.2s ease}
+.btn:hover{transform:translateY(-1px);border-color:#3c5878}.btn.primary{background:var(--warm);color:#07111f;border-color:var(--warm)}
+.hero-card{border:1px solid var(--line);border-radius:24px;padding:30px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.02));box-shadow:0 24px 80px rgba(0,0,0,.30)}
+.hero-card b{font-size:22px}.hero-card .mini{color:var(--muted);margin:8px 0 20px}
+.question-list{display:grid;gap:10px;counter-reset:item}.question{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:#0b1728;border:1px solid var(--line);border-radius:11px;color:#dce7f4}
+.question::before{counter-increment:item;content:"0" counter(item);color:var(--accent);font-size:11px;font-weight:900;margin-top:3px}
+.trustbar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--line);margin-bottom:10px}
+.trustitem{background:#0a1626;padding:18px 17px}.trustitem b{display:block;font-size:15px}.trustitem span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+section{padding:92px 0;border-top:1px solid rgba(255,255,255,.07)}
+.section-lead{color:var(--muted);max-width:790px;margin-bottom:42px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(180deg,var(--card),#0a1728);border:1px solid var(--line);border-radius:18px;padding:26px}
+.card h3{margin:0 0 10px;font-size:20px}.card p{color:var(--muted);margin:0}.card .signal{display:inline-block;color:var(--accent2);font-size:12px;font-weight:800;letter-spacing:.06em;margin-bottom:12px}
+.problem{font-size:clamp(27px,3.5vw,43px);max-width:940px;line-height:1.42;margin:0}.problem em{color:var(--accent2);font-style:normal}
+.problem-sub{color:var(--muted);max-width:760px;margin-top:20px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.step{padding:20px 14px;border:1px solid var(--line);border-radius:14px;background:#0b1728;min-height:125px}
+.num{color:var(--accent);font-weight:900;font-size:12px}.step b{display:block;margin:8px 0 4px}.step small{display:block;color:var(--muted);line-height:1.45}
+.case{display:grid;grid-template-columns:1fr 1fr;gap:18px}.case-card{min-height:300px;display:flex;flex-direction:column}.case-card h3{font-size:22px}
+.case-rows{display:grid;gap:13px;margin-top:17px}.case-row{border-top:1px solid var(--line);padding-top:12px}.case-row b{display:block;font-size:12px;color:var(--accent);letter-spacing:.05em;margin-bottom:3px}.case-row span{color:#c8d4e3;font-size:14px}
+.quote{margin-top:auto;padding-top:18px;color:var(--accent2);font-weight:700}
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px}.portrait{aspect-ratio:4/5;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#173250,#0b1728);display:flex;align-items:end;padding:28px;position:relative;overflow:hidden}
+.portrait::after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(125,211,252,.10);right:-70px;top:-50px}.portrait strong{font-size:34px;position:relative;z-index:1}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.tag{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:#cbd7e5;font-size:13px}
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}.principle{border-left:2px solid var(--accent);padding:4px 0 4px 14px;color:#cbd7e5}.principle b{display:block;color:var(--text);margin-bottom:3px}
+.final-wrap{padding:100px 0 118px}.final{position:relative;overflow:hidden;text-align:center;border:1px solid #2b4666;border-radius:26px;padding:72px 28px;background:linear-gradient(145deg,#10243c,#0a1728);box-shadow:0 30px 100px rgba(0,0,0,.28)}
+.final::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(125,211,252,.10);right:-120px;top:-180px}.final h2{position:relative}.final p{position:relative;color:#b7c4d5;font-size:18px;max-width:720px;margin:14px auto 0}.final .cta{justify-content:center;position:relative}
+.cta-hint{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px;color:#90a2b8;font-size:13px;position:relative}
+footer{padding:28px 0 44px;color:#72839a;font-size:13px;border-top:1px solid rgba(255,255,255,.07)}
+@media(max-width:900px){.trustbar{grid-template-columns:1fr 1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.navlinks{display:none}.hero,.about{grid-template-columns:1fr}.hero{padding-top:35px}.grid{grid-template-columns:1fr}.case{grid-template-columns:1fr}.hero-card{order:-1}.principles{grid-template-columns:1fr}}
+@media(max-width:560px){.trustbar{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}h1{font-size:44px}.hero-card{padding:23px}.final{padding:55px 20px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<nav><div class="brand">ARZBAR / AI PROBLEM SOLVER</div><div class="navlinks"><a href="#solve">我解什麼</a><a href="#method">解題方法</a><a href="#cases">實戰案例</a><a href="#about">關於阿茲</a></div></nav>
+<nav>
+  <div class="brand">ARZBAR / AI PROBLEM SOLVER</div>
+  <div class="navlinks">
+    <a href="#solve">我能解什麼</a>
+    <a href="#method">怎麼解</a>
+    <a href="#cases">實戰案例</a>
+    <a href="#about">為什麼是我</a>
+    <a class="nav-cta" href="#contact">聊你的問題</a>
+  </div>
+</nav>
+
 <main>
 <section class="hero" style="border:0">
-<div><div class="kicker">AI Problem Solver · Workflow Architect</div><h1>企業有問題，<br>我來拆解。</h1><p class="lead">我是阿茲，AI 問題解決師。從企業真正的工作問題出發，重新整理流程，再用 AI、自動化、API 與系統整合，把每天重複、耗時、容易出錯的工作，變成真正能運作的工作流。</p><div class="cta"><a class="btn primary" href="#solve">看看我怎麼解題</a><a class="btn" href="#about">認識阿茲</a></div></div>
-<div class="hero-card"><b>不要先問要用哪個 AI。</b><p style="color:var(--muted)">先告訴我：你每天最麻煩的工作是什麼？</p><div class="flow"><span>問題診斷</span><span>流程拆解</span><span>AI × 自動化設計</span><span>系統落地與驗證</span></div></div>
+  <div>
+    <div class="kicker">AI Problem Solver · Workflow Architect</div>
+    <h1>把卡住的工作，<br>變成能運作的流程。</h1>
+    <p class="lead">我是阿茲。你不需要先懂 AI，也不用先決定要用什麼工具。<strong>先把最麻煩、最重複、最容易出錯的工作告訴我。</strong>我會從問題本身開始，拆流程、找斷點，再決定怎麼用 AI、自動化、API 或系統整合把它解掉。</p>
+    <div class="cta">
+      <a class="btn primary" href="#cases">看我怎麼解問題</a>
+      <a class="btn" href="#method">了解解題方式</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <b>給我一個問題，我會先問這 4 件事。</b>
+    <p class="mini">工具排在後面，先把真正的卡點找出來。</p>
+    <div class="question-list">
+      <div class="question">現在這件事，是怎麼被完成的？</div>
+      <div class="question">哪一步最花時間、最常出錯？</div>
+      <div class="question">哪些資料正在重複輸入、重複搬運？</div>
+      <div class="question">如果這件事變順了，你真正想得到什麼結果？</div>
+    </div>
+  </div>
 </section>
 
-<section id="solve"><div class="kicker">WHAT I SOLVE</div><h2>小公司，也值得有自己的自動化。</h2><p class="section-lead">特別聚焦一人公司、工作室與微型企業。你不需要先懂 AI，我們從工作現場開始。</p>
-<div class="grid"><div class="card"><h3>客服與 LINE</h3><p>重複問題、訊息分類、知識庫、真人接手與後續追蹤。</p></div><div class="card"><h3>預約與報名</h3><p>從填單、預約、付款、提醒，到客戶資料自動整理。</p></div><div class="card"><h3>接單與訂單</h3><p>減少人工複製、對帳、通知與跨平台重複輸入。</p></div><div class="card"><h3>行政與資料</h3><p>讓散落在 LINE、表單、試算表與系統裡的資料重新流動。</p></div><div class="card"><h3>AI 知識工作</h3><p>摘要、分類、查詢、內容整理與企業知識庫應用。</p></div><div class="card"><h3>系統整合</h3><p>LINE OA、n8n、API、Database、LLM 與既有系統串接。</p></div></div></section>
+<div class="trustbar" aria-label="working principles">
+  <div class="trustitem"><b>先理解營運</b><span>不急著塞工具</span></div>
+  <div class="trustitem"><b>能拆成流程</b><span>把模糊問題具體化</span></div>
+  <div class="trustitem"><b>能串既有系統</b><span>API、DB、LINE、Automation</span></div>
+  <div class="trustitem"><b>先驗證再擴大</b><span>讓方案真的跑得動</span></div>
+</div>
 
-<section><p class="problem">真正的問題通常不是「公司沒有 AI」，而是 <em>人一直在做機器本來就能處理的事情。</em></p></section>
+<section id="solve">
+  <div class="kicker">WHAT I SOLVE</div>
+  <h2>你可以直接帶著「問題」來。</h2>
+  <p class="section-lead">我處理的不是某一套 AI 工具，而是工作現場裡那些每天都在消耗人力、時間與注意力的卡點。</p>
+  <div class="grid">
+    <div class="card"><span class="signal">01 / 重複工作</span><h3>同一份資料，一直複製貼上</h3><p>LINE、表單、Excel、後台彼此不通，員工每天重複搬資料。</p></div>
+    <div class="card"><span class="signal">02 / 客戶流程</span><h3>訊息很多，卻沒有真正的流程</h3><p>詢問、報名、付款、預約、提醒、追蹤，全靠人工記得。</p></div>
+    <div class="card"><span class="signal">03 / 系統斷點</span><h3>工具很多，但資料接不起來</h3><p>既有系統能用，卻缺少 API、Webhook、資料庫或自動化把它們串起來。</p></div>
+    <div class="card"><span class="signal">04 / AI 導入</span><h3>想用 AI，卻不知道該放在哪裡</h3><p>先判斷 AI 有沒有必要，再決定放在分類、摘要、客服、知識或決策輔助。</p></div>
+    <div class="card"><span class="signal">05 / 知識散落</span><h3>重要資訊都在聊天紀錄和人腦裡</h3><p>把群組、文件、客戶對話與工作紀錄整理成可以查、可以用的知識。</p></div>
+    <div class="card"><span class="signal">06 / 微型企業</span><h3>人不多，更不能一直浪費人力</h3><p>一人公司、工作室、小團隊，也能建立適合自己的自動化工作流。</p></div>
+  </div>
+</section>
 
-<section id="method"><div class="kicker">PROBLEM → WORKFLOW → SOLUTION</div><h2>企業 AI 解題六步法</h2><p class="section-lead">工具會換，解題能力不會。每一個專案都先理解營運，再決定技術。</p><div class="steps"><div class="step"><span class="num">01</span><b>診斷</b></div><div class="step"><span class="num">02</span><b>拆題</b></div><div class="step"><span class="num">03</span><b>流程</b></div><div class="step"><span class="num">04</span><b>AI</b></div><div class="step"><span class="num">05</span><b>建置</b></div><div class="step"><span class="num">06</span><b>驗證</b></div></div></section>
+<section>
+  <p class="problem">真正有價值的 AI 導入，通常不是多裝一個工具。<br><em>而是讓原本卡住的工作，終於順起來。</em></p>
+  <p class="problem-sub">所以我會先問「問題發生在哪裡」，再決定需不需要 AI。很多時候，真正的解法可能是流程重整、API 串接、資料結構或自動化；AI 只是其中一塊。</p>
+</section>
 
-<section id="cases"><div class="kicker">REAL-WORLD EXPERIENCE</div><h2>我們一直都在解題。</h2><p class="section-lead">從大型企業、政府專案、跨境支付到今天的 AI 工作流，技術一直改變，但核心始終是把複雜問題變成能運作的系統。</p>
-<div class="case"><div class="card"><h3>跨境支付 × API</h3><p>整合便利商店 EC 給號、POS、AML 與自動銷帳 Callback，處理高交易量的跨系統流程。</p></div><div class="card"><h3>旅遊分銷 × 訂位</h3><p>把人工同業訂票重新設計為分級分銷、專屬網址、QR Code、訂位與統計系統。</p></div><div class="card"><h3>LINE × AI 知識</h3><p>從大量群組對話中擷取重點、追蹤事項，產生每日／每週摘要並沉澱企業知識。</p></div><div class="card"><h3>企業 × 數位整合</h3><p>累積大型品牌電商、智慧服務、政府與公共領域的系統規劃與整合經驗。</p></div></div></section>
+<section id="method">
+  <div class="kicker">PROBLEM → WORKFLOW → SOLUTION</div>
+  <h2>我的解題方式</h2>
+  <p class="section-lead">不是「你想用哪個工具」，而是從現況、限制與目標，一步一步把問題變成可執行方案。</p>
+  <div class="steps">
+    <div class="step"><span class="num">01</span><b>診斷</b><small>先聽懂現場到底怎麼運作</small></div>
+    <div class="step"><span class="num">02</span><b>拆題</b><small>把大問題拆成真正的卡點</small></div>
+    <div class="step"><span class="num">03</span><b>畫流程</b><small>找出資料、人與系統的斷點</small></div>
+    <div class="step"><span class="num">04</span><b>選解法</b><small>判斷 AI、自動化或系統怎麼配</small></div>
+    <div class="step"><span class="num">05</span><b>建置</b><small>API、DB、LINE、n8n 實際落地</small></div>
+    <div class="step"><span class="num">06</span><b>驗證</b><small>測到真的能用，再往下擴充</small></div>
+  </div>
+</section>
 
-<section id="about"><div class="about"><div class="portrait"><div><div class="kicker">ARZBAR</div><strong>吳政穎<br>阿茲</strong></div></div><div><div class="kicker">ABOUT</div><h2>AI 問題解決師<br><span style="color:var(--muted)">AI Workflow Architect</span></h2><p class="lead">後端與雲端架構背景，長期投入 API、資料庫、系統整合與自動化。現在把工程能力與 AI 結合，專注協助企業找出流程卡點，設計可以真正落地的解決方案。</p><div class="tags"><span class="tag">AI Workflow</span><span class="tag">n8n</span><span class="tag">LINE OA</span><span class="tag">API Integration</span><span class="tag">Database</span><span class="tag">LLM</span><span class="tag">Automation</span></div></div></div></section>
+<section id="cases">
+  <div class="kicker">REAL-WORLD PROBLEM SOLVING</div>
+  <h2>信任，不是看我會幾個工具。<br>是看我能不能把問題接住。</h2>
+  <p class="section-lead">以下這些場景的技術完全不同，但處理方式一致：先理解工作現場，再把複雜的事情拆成可以運作的系統。</p>
 
-<section class="final"><div class="kicker">START WITH THE PROBLEM</div><h2>不用先想 AI。<br>先說說你公司哪件事最麻煩。</h2><p>從一個工作問題開始，找出真正值得自動化的地方。</p></section>
+  <div class="case">
+    <div class="card case-card">
+      <span class="signal">跨境支付 × API</span>
+      <h3>多個支付與帳務節點，怎麼讓資料自動對上？</h3>
+      <div class="case-rows">
+        <div class="case-row"><b>現場問題</b><span>交易流程跨越便利商店 EC 給號、POS、AML 與帳務系統。</span></div>
+        <div class="case-row"><b>拆解方式</b><span>釐清每個節點的資料格式、狀態與回傳條件。</span></div>
+        <div class="case-row"><b>做成什麼</b><span>以 API 與 Callback 串起跨系統流程，讓銷帳與狀態回傳能自動運作。</span></div>
+      </div>
+      <div class="quote">重點不是「串 API」，而是讓交易流程可信、可追、可驗證。</div>
+    </div>
+
+    <div class="card case-card">
+      <span class="signal">旅遊分銷 × 訂位</span>
+      <h3>原本靠人工處理的訂位，怎麼變成可管理的分銷流程？</h3>
+      <div class="case-rows">
+        <div class="case-row"><b>現場問題</b><span>同業訂票仰賴人工處理，資訊與統計分散。</span></div>
+        <div class="case-row"><b>拆解方式</b><span>重新整理角色、權限、訂位、入口與統計需求。</span></div>
+        <div class="case-row"><b>做成什麼</b><span>分級分銷、專屬網址、QR Code、訂位與統計整合成完整流程。</span></div>
+      </div>
+      <div class="quote">把「人記得怎麼做」，變成「系統知道下一步要做什麼」。</div>
+    </div>
+
+    <div class="card case-card">
+      <span class="signal">LINE × AI 知識</span>
+      <h3>大量群組訊息，怎麼從聊天變成可用的企業知識？</h3>
+      <div class="case-rows">
+        <div class="case-row"><b>現場問題</b><span>重要決策、追蹤事項與資訊散落在大量對話裡。</span></div>
+        <div class="case-row"><b>拆解方式</b><span>先定義什麼是重點、待辦、決策與可沉澱知識。</span></div>
+        <div class="case-row"><b>做成什麼</b><span>自動擷取重點、追蹤事項，產出每日／每週摘要並持續累積知識。</span></div>
+      </div>
+      <div class="quote">AI 的價值，不是多一個聊天機器人，而是把資訊變得可用。</div>
+    </div>
+
+    <div class="card case-card">
+      <span class="signal">企業 × 數位整合</span>
+      <h3>新工具一直增加，怎麼不讓系統越做越亂？</h3>
+      <div class="case-rows">
+        <div class="case-row"><b>現場問題</b><span>品牌、公共服務與企業專案常同時牽涉多角色、多資料與多系統。</span></div>
+        <div class="case-row"><b>拆解方式</b><span>先定義需求邊界、資料流、權限與系統責任。</span></div>
+        <div class="case-row"><b>做成什麼</b><span>從架構、API、資料庫到工作流，建立可以維護與持續延伸的整合方式。</span></div>
+      </div>
+      <div class="quote">技術選擇只是手段，能不能長期運作才是答案。</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div class="portrait"><div><div class="kicker">ARZBAR</div><strong>吳政穎<br>阿茲</strong></div></div>
+    <div>
+      <div class="kicker">WHY ARZBAR</div>
+      <h2>工程能力，是底層。<br>解題能力，才是核心。</h2>
+      <p class="lead">我有後端、雲端架構、API、資料庫、系統整合與自動化背景。現在把這些能力和 AI 結合，專注處理企業真正卡住的工作流程。遇到問題時，我不會先問「你想用什麼工具」，而是先找出哪裡值得改、哪裡不該動、哪裡做了最有價值。</p>
+
+      <div class="principles">
+        <div class="principle"><b>我會先說清楚問題</b>能做、不能做、哪裡有風險，先釐清再開發。</div>
+        <div class="principle"><b>我不為了 AI 而 AI</b>如果流程或系統整合就能解，我不會硬塞模型。</div>
+        <div class="principle"><b>我在意能不能維護</b>方案不是 Demo 能跑就算完成，還要能接進日常工作。</div>
+        <div class="principle"><b>我習慣跨系統思考</b>從使用者、資料、API 到後端，一起看整條流程。</div>
+      </div>
+
+      <div class="tags">
+        <span class="tag">AI Workflow</span><span class="tag">n8n</span><span class="tag">LINE OA</span>
+        <span class="tag">API Integration</span><span class="tag">Database</span><span class="tag">LLM</span>
+        <span class="tag">Backend</span><span class="tag">Automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="final-wrap">
+  <div class="final">
+    <div class="kicker">START WITH ONE REAL PROBLEM</div>
+    <h2>先別想要不要導 AI。<br>把你現在最卡的那一件事告訴我。</h2>
+    <p>你可以只帶一個很具體的問題來：客服回不完、資料一直複製、預約很亂、系統接不起來、同一件事每天重做。我們先判斷問題在哪裡，再看值不值得自動化。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/tmparz" target="_blank" rel="noopener">找阿茲聊聊</a>
+      <a class="btn" href="#cases">再看一次實戰案例</a>
+    </div>
+    <div class="cta-hint">
+      <span>✓ 不用先準備技術規格</span>
+      <span>✓ 不用先決定工具</span>
+      <span>✓ 先把工作問題說清楚就好</span>
+    </div>
+  </div>
+</section>
 </main>
+
 <footer>© 2026 Arzbar · AI Problem Solver / Workflow Architect</footer>
-</div></body></html>
+</div>
+</body>
+</html>
