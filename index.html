@@ -2,235 +2,466 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>阿茲 Arzbar｜AI 問題解決師</title>
-<meta name="description" content="從企業真正的工作問題出發，拆解流程、找出卡點，再用 AI、自動化、API 與系統整合，把問題做成真正能運作的解決方案。">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>阿茲 Arzbar</title>
+<meta name="description" content="我是吳政穎，大家叫我阿茲。我把卡住的工作拆開、理順，再用 AI、自動化、API 與系統整合把它接起來。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Martian+Mono:wght@400;600&display=swap">
 <style>
 :root{
-  --bg:#07111f;--card:#0d1b2e;--card2:#0a1626;--text:#f4f7fb;--muted:#9eacc0;
-  --line:#20334c;--accent:#7dd3fc;--accent2:#a7f3d0;--warm:#f8fafc;
+  color-scheme:light;
+  --board:#eceee9;       /* whiteboard */
+  --board-2:#e2e5df;
+  --ink:#16181d;
+  --muted:#5b626c;
+  --rule:#c6cbc3;
+  --marker:#2346c9;      /* blue dry-erase marker */
+  --hl:#f3df4a;          /* highlighter */
+  --hl-ink:#16181d;
+  --strike:#c23b3b;
+  --hand:"LXGW WenKai TC","Kaiti TC","KaiTi","STKaiti",serif;
+  --sans:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+  --mono:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:
-  radial-gradient(circle at 85% 8%,#123256 0,transparent 29%),
-  radial-gradient(circle at 8% 48%,rgba(16,185,129,.08),transparent 24%),
-  var(--bg);color:var(--text);
-  font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.75}
-a{color:inherit;text-decoration:none}.wrap{max-width:1140px;margin:auto;padding:0 24px}
-nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative;z-index:5}
-.brand{font-weight:850;letter-spacing:.04em}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:14px;align-items:center}
-.nav-cta{border:1px solid var(--line);padding:8px 13px;border-radius:9px;color:var(--text)}
-.hero{min-height:82vh;display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center;padding:72px 0 96px}
-.kicker{color:var(--accent);font-weight:800;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
-h1{font-size:clamp(46px,7vw,82px);line-height:1.04;margin:16px 0 24px;letter-spacing:-.045em}
-h2{font-size:clamp(32px,4vw,52px);line-height:1.15;margin:0 0 18px;letter-spacing:-.025em}
-h3{line-height:1.35}.lead{font-size:20px;color:#d5deea;max-width:760px}
-.hero .lead strong{color:var(--accent2);font-weight:750}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:10px;border:1px solid var(--line);font-weight:800;transition:.2s ease}
-.btn:hover{transform:translateY(-1px);border-color:#3c5878}.btn.primary{background:var(--warm);color:#07111f;border-color:var(--warm)}
-.hero-card{border:1px solid var(--line);border-radius:24px;padding:30px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.02));box-shadow:0 24px 80px rgba(0,0,0,.30)}
-.hero-card b{font-size:22px}.hero-card .mini{color:var(--muted);margin:8px 0 20px}
-.question-list{display:grid;gap:10px;counter-reset:item}.question{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:#0b1728;border:1px solid var(--line);border-radius:11px;color:#dce7f4}
-.question::before{counter-increment:item;content:"0" counter(item);color:var(--accent);font-size:11px;font-weight:900;margin-top:3px}
-.trustbar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--line);margin-bottom:10px}
-.trustitem{background:#0a1626;padding:18px 17px}.trustitem b{display:block;font-size:15px}.trustitem span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
-section{padding:92px 0;border-top:1px solid rgba(255,255,255,.07)}
-.section-lead{color:var(--muted);max-width:790px;margin-bottom:42px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(180deg,var(--card),#0a1728);border:1px solid var(--line);border-radius:18px;padding:26px}
-.card h3{margin:0 0 10px;font-size:20px}.card p{color:var(--muted);margin:0}.card .signal{display:inline-block;color:var(--accent2);font-size:12px;font-weight:800;letter-spacing:.06em;margin-bottom:12px}
-.problem{font-size:clamp(27px,3.5vw,43px);max-width:940px;line-height:1.42;margin:0}.problem em{color:var(--accent2);font-style:normal}
-.problem-sub{color:var(--muted);max-width:760px;margin-top:20px}
-.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.step{padding:20px 14px;border:1px solid var(--line);border-radius:14px;background:#0b1728;min-height:125px}
-.num{color:var(--accent);font-weight:900;font-size:12px}.step b{display:block;margin:8px 0 4px}.step small{display:block;color:var(--muted);line-height:1.45}
-.case{display:grid;grid-template-columns:1fr 1fr;gap:18px}.case-card{min-height:300px;display:flex;flex-direction:column}.case-card h3{font-size:22px}
-.case-rows{display:grid;gap:13px;margin-top:17px}.case-row{border-top:1px solid var(--line);padding-top:12px}.case-row b{display:block;font-size:12px;color:var(--accent);letter-spacing:.05em;margin-bottom:3px}.case-row span{color:#c8d4e3;font-size:14px}
-.quote{margin-top:auto;padding-top:18px;color:var(--accent2);font-weight:700}
-.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px}.portrait{aspect-ratio:4/5;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#173250,#0b1728);display:flex;align-items:end;padding:28px;position:relative;overflow:hidden}
-.portrait::after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(125,211,252,.10);right:-70px;top:-50px}.portrait strong{font-size:34px;position:relative;z-index:1}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.tag{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:#cbd7e5;font-size:13px}
-.principles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}.principle{border-left:2px solid var(--accent);padding:4px 0 4px 14px;color:#cbd7e5}.principle b{display:block;color:var(--text);margin-bottom:3px}
-.final-wrap{padding:100px 0 118px}.final{position:relative;overflow:hidden;text-align:center;border:1px solid #2b4666;border-radius:26px;padding:72px 28px;background:linear-gradient(145deg,#10243c,#0a1728);box-shadow:0 30px 100px rgba(0,0,0,.28)}
-.final::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(125,211,252,.10);right:-120px;top:-180px}.final h2{position:relative}.final p{position:relative;color:#b7c4d5;font-size:18px;max-width:720px;margin:14px auto 0}.final .cta{justify-content:center;position:relative}
-.cta-hint{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px;color:#90a2b8;font-size:13px;position:relative}
-footer{padding:28px 0 44px;color:#72839a;font-size:13px;border-top:1px solid rgba(255,255,255,.07)}
-@media(max-width:900px){.trustbar{grid-template-columns:1fr 1fr}.steps{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:800px){.navlinks{display:none}.hero,.about{grid-template-columns:1fr}.hero{padding-top:35px}.grid{grid-template-columns:1fr}.case{grid-template-columns:1fr}.hero-card{order:-1}.principles{grid-template-columns:1fr}}
-@media(max-width:560px){.trustbar{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}h1{font-size:44px}.hero-card{padding:23px}.final{padding:55px 20px}}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --board:#15171b;--board-2:#1c1f24;--ink:#e8eae5;--muted:#9aa1ab;--rule:#30343b;
+    --marker:#8ea6ff;--hl:#d9c53a;--hl-ink:#15171b;--strike:#ef7b7b;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --board:#15171b;--board-2:#1c1f24;--ink:#e8eae5;--muted:#9aa1ab;--rule:#30343b;
+  --marker:#8ea6ff;--hl:#d9c53a;--hl-ink:#15171b;--strike:#ef7b7b;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--board);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.8;
+  /* faint dot grid, like a planning board */
+  background-image:radial-gradient(var(--rule) 1px,transparent 1.2px);
+  background-size:28px 28px;
+}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dashed var(--marker);outline-offset:4px}
+.page{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+mark{background:linear-gradient(transparent 38%,var(--hl) 38%,var(--hl) 88%,transparent 88%);color:inherit;padding:0 .12em}
+.hand{font-family:var(--hand)}
+.note{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+h1,h2,h3{font-family:var(--hand);font-weight:700;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4.4vw,48px);line-height:1.2}
+h3{font-size:24px;line-height:1.35}
+p{margin:0}
+
+/* header */
+header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-block:26px 0}
+.name{display:flex;align-items:baseline;gap:12px}
+.name b{font-family:var(--hand);font-size:26px}
+header nav{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}
+header nav a{text-decoration:none;color:var(--muted)}
+header nav a:hover{color:var(--marker)}
+
+/* hero */
+.hero{padding-block:clamp(40px,7vw,80px) 24px}
+.hero h1{font-size:clamp(38px,6.6vw,76px);line-height:1.18;max-width:15em}
+.hero .intro{max-width:36em;margin-top:22px;font-size:18px;color:var(--muted)}
+.hero .intro strong{color:var(--ink);font-weight:500}
+
+.board{margin-top:40px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding-block:14px 18px}
+.board-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#wire{display:block;width:100%;height:auto;overflow:visible;touch-action:pan-y}
+#wire .line{fill:none;stroke:var(--marker);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+#wire .dot{fill:var(--board);stroke:var(--ink);stroke-width:3}
+#wire .end{fill:var(--ink)}
+#wire text{font-family:var(--hand);font-size:27px;fill:var(--ink);text-anchor:middle}
+#wire text.small{font-family:var(--mono);font-size:15px;fill:var(--muted);letter-spacing:.06em}
+.control{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.control label{font-family:var(--hand);font-size:20px}
+#tidy{flex:1;min-width:160px;accent-color:var(--marker);height:28px}
+#readout{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;min-width:5.5em;text-align:right}
+#caption{font-family:var(--hand);font-size:20px;margin-top:6px;min-height:1.8em}
+
+/* sections */
+section{padding-block:clamp(64px,9vw,110px) 0}
+.sec-head{display:grid;grid-template-columns:180px 1fr;gap:12px 32px;align-items:baseline;margin-bottom:36px}
+.sec-head .lede{grid-column:2;color:var(--muted);max-width:36em}
+
+/* about */
+.letter{display:grid;grid-template-columns:180px 1fr;gap:32px}
+.letter-body{max-width:38em;display:grid;gap:18px;font-size:18px}
+.letter-body .hello{font-family:var(--hand);font-size:clamp(26px,3.4vw,34px);line-height:1.4}
+.habits{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;margin-top:22px}
+.habit b{display:block;font-family:var(--hand);font-size:21px;margin-bottom:4px}
+.habit p{color:var(--muted);font-size:15.5px}
+.sign{font-family:var(--hand);font-size:22px;margin-top:6px}
+
+/* triage */
+.triage{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.chips{display:flex;flex-direction:column;gap:2px}
+.chip{all:unset;cursor:pointer;display:flex;gap:14px;align-items:baseline;padding:13px 4px;border-bottom:1px solid var(--rule);font-size:17px;transition:padding .15s ease}
+.chip .note{min-width:4.5em}
+.chip:hover{padding-left:10px}
+.chip[aria-pressed="true"]{font-weight:700}
+.chip[aria-pressed="true"] span:last-child{background:linear-gradient(transparent 50%,var(--hl) 50%,var(--hl) 92%,transparent 92%);color:var(--ink)}
+.chip:focus-visible{outline:2px dashed var(--marker);outline-offset:2px}
+.sheet{background:var(--board-2);border:1.5px solid var(--ink);padding:clamp(20px,3vw,32px);box-shadow:6px 6px 0 var(--ink);display:grid;gap:18px}
+.sheet h3{font-size:26px}
+.sheet dl{margin:0;display:grid;gap:14px}
+.sheet dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.sheet dd{margin:2px 0 0}
+.sheet dd.fix{font-family:var(--hand);font-size:21px;color:var(--marker)}
+.sheet .asks{margin:4px 0 0;padding-left:1.2em}
+.sheet .asks li{margin-bottom:2px}
+
+/* method: one straight line with stops */
+.route{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;padding-top:34px}
+.route::before{content:"";position:absolute;left:8px;right:8px;top:9px;height:5px;border-radius:3px;background:var(--marker)}
+.stop{position:relative}
+.stop::before{content:"";position:absolute;top:-34px;left:0;width:18px;height:18px;border-radius:50%;background:var(--board);border:3px solid var(--ink)}
+.stop .note{display:block}
+.stop b{display:block;font-family:var(--hand);font-size:24px;margin:2px 0 4px}
+.stop p{color:var(--muted);font-size:15px;line-height:1.6}
+
+/* cases */
+.cases{display:grid;gap:0}
+.case{display:grid;grid-template-columns:180px 1fr;gap:12px 32px;padding-block:32px;border-top:1px solid var(--rule)}
+.case:last-child{border-bottom:1px solid var(--rule)}
+.case h3{margin-bottom:14px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:15px;margin:6px 0}
+.flow .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);width:4.5em;flex:none}
+.flow.before span:not(.tag){text-decoration:line-through;text-decoration-color:var(--strike);text-decoration-thickness:2px;color:var(--muted)}
+.flow.after span:not(.tag){font-weight:500}
+.flow i{font-style:normal;color:var(--muted)}
+.case .takeaway{font-family:var(--hand);font-size:20px;margin-top:14px;color:var(--marker)}
+
+/* toolbox */
+.toolbox{display:grid;grid-template-columns:180px 1fr;gap:32px}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 32px}
+.tools b{display:block;font-family:var(--hand);font-size:20px;margin-bottom:4px}
+.tools p{color:var(--muted);font-size:15px}
+
+/* contact */
+.contact{padding-block:clamp(72px,10vw,120px)}
+.card-note{position:relative;max-width:640px;margin-left:auto;margin-right:clamp(0px,6vw,80px);background:var(--hl);color:var(--hl-ink);padding:clamp(26px,4vw,40px);transform:rotate(-1.2deg);box-shadow:0 14px 30px -18px rgba(0,0,0,.45)}
+.card-note::before{content:"";position:absolute;top:-14px;left:50%;width:110px;height:28px;margin-left:-55px;background:rgba(255,255,255,.45);transform:rotate(2deg)}
+.card-note h2{font-size:clamp(28px,4vw,40px)}
+.card-note p{margin-top:14px}
+.card-note ul{margin:16px 0 0;padding-left:1.2em}
+.card-note .go{display:inline-block;margin-top:22px;font-family:var(--hand);font-size:22px;font-weight:700;color:var(--hl-ink);text-decoration:none;border-bottom:3px solid var(--hl-ink);padding-bottom:2px}
+.card-note .go:hover{letter-spacing:.02em}
+.contact-side{max-width:420px;margin-bottom:-40px}
+.contact-side p{font-family:var(--hand);font-size:clamp(24px,3vw,30px);line-height:1.45}
+
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-block:22px 36px;border-top:1.5px solid var(--ink)}
+
+@media (max-width:860px){
+  .sec-head,.letter,.case,.toolbox{grid-template-columns:1fr}
+  .sec-head .lede{grid-column:1}
+  .triage{grid-template-columns:1fr}
+  .route{grid-template-columns:1fr 1fr 1fr;row-gap:44px}
+  .route::before{display:none}
+  .stop::after{content:"";position:absolute;top:-27px;left:18px;right:-18px;height:5px;background:var(--marker)}
+  .tools{grid-template-columns:1fr 1fr}
+  .contact-side{margin-bottom:28px}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .habits,.tools{grid-template-columns:1fr}
+  .route{grid-template-columns:1fr 1fr}
+  .card-note{transform:none}
+  #wire text{font-size:34px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<nav>
-  <div class="brand">ARZBAR / AI PROBLEM SOLVER</div>
-  <div class="navlinks">
-    <a href="#solve">我能解什麼</a>
-    <a href="#method">怎麼解</a>
-    <a href="#cases">實戰案例</a>
-    <a href="#about">為什麼是我</a>
-    <a class="nav-cta" href="#contact">聊你的問題</a>
-  </div>
-</nav>
+<div class="page">
+
+<header>
+  <div class="name"><b>阿茲</b><span class="note">吳政穎 · Arzbar</span></div>
+  <nav aria-label="頁面導覽">
+    <a href="#about">我是誰</a>
+    <a href="#triage">帶問題來</a>
+    <a href="#method">怎麼做</a>
+    <a href="#cases">做過的事</a>
+    <a href="#contact">聯絡</a>
+  </nav>
+</header>
 
 <main>
-<section class="hero" style="border:0">
-  <div>
-    <div class="kicker">AI Problem Solver · Workflow Architect</div>
-    <h1>把卡住的工作，<br>變成能運作的流程。</h1>
-    <p class="lead">我是阿茲。你不需要先懂 AI，也不用先決定要用什麼工具。<strong>先把最麻煩、最重複、最容易出錯的工作告訴我。</strong>我會從問題本身開始，拆流程、找斷點，再決定怎麼用 AI、自動化、API 或系統整合把它解掉。</p>
-    <div class="cta">
-      <a class="btn primary" href="#cases">看我怎麼解問題</a>
-      <a class="btn" href="#method">了解解題方式</a>
+<section class="hero" style="padding-top:clamp(40px,7vw,80px)">
+  <p class="note">工作流程架構 · AI 導入 · 系統整合</p>
+  <h1 style="margin-top:14px">把纏成一團的工作交給我，<br>我把它<mark>理成一條線</mark>。</h1>
+  <p class="intro">訊息在 LINE，資料在 Excel，表單又是另一套，最後有人手動對帳。<strong>我做的事，是把這些東西排好順序、接起來，</strong>該用 AI 的地方才用 AI。</p>
+
+  <div class="board" aria-label="工作流程整理示意">
+    <div class="board-head">
+      <span class="note">白板示意 · 一家小公司的日常</span>
+      <span class="note">拉動下方把手</span>
     </div>
-  </div>
-
-  <div class="hero-card">
-    <b>給我一個問題，我會先問這 4 件事。</b>
-    <p class="mini">工具排在後面，先把真正的卡點找出來。</p>
-    <div class="question-list">
-      <div class="question">現在這件事，是怎麼被完成的？</div>
-      <div class="question">哪一步最花時間、最常出錯？</div>
-      <div class="question">哪些資料正在重複輸入、重複搬運？</div>
-      <div class="question">如果這件事變順了，你真正想得到什麼結果？</div>
+    <svg id="wire" viewBox="0 0 1000 360" role="img" aria-label="一條纏繞的線，隨整理程度變成一條直線，串起 LINE 訊息、Excel、表單、後台四個節點"></svg>
+    <div class="control">
+      <label for="tidy">整理程度</label>
+      <input id="tidy" type="range" min="0" max="100" value="0">
+      <span id="readout">0%</span>
     </div>
-  </div>
-</section>
-
-<div class="trustbar" aria-label="working principles">
-  <div class="trustitem"><b>先理解營運</b><span>不急著塞工具</span></div>
-  <div class="trustitem"><b>能拆成流程</b><span>把模糊問題具體化</span></div>
-  <div class="trustitem"><b>能串既有系統</b><span>API、DB、LINE、Automation</span></div>
-  <div class="trustitem"><b>先驗證再擴大</b><span>讓方案真的跑得動</span></div>
-</div>
-
-<section id="solve">
-  <div class="kicker">WHAT I SOLVE</div>
-  <h2>你可以直接帶著「問題」來。</h2>
-  <p class="section-lead">我處理的不是某一套 AI 工具，而是工作現場裡那些每天都在消耗人力、時間與注意力的卡點。</p>
-  <div class="grid">
-    <div class="card"><span class="signal">01 / 重複工作</span><h3>同一份資料，一直複製貼上</h3><p>LINE、表單、Excel、後台彼此不通，員工每天重複搬資料。</p></div>
-    <div class="card"><span class="signal">02 / 客戶流程</span><h3>訊息很多，卻沒有真正的流程</h3><p>詢問、報名、付款、預約、提醒、追蹤，全靠人工記得。</p></div>
-    <div class="card"><span class="signal">03 / 系統斷點</span><h3>工具很多，但資料接不起來</h3><p>既有系統能用，卻缺少 API、Webhook、資料庫或自動化把它們串起來。</p></div>
-    <div class="card"><span class="signal">04 / AI 導入</span><h3>想用 AI，卻不知道該放在哪裡</h3><p>先判斷 AI 有沒有必要，再決定放在分類、摘要、客服、知識或決策輔助。</p></div>
-    <div class="card"><span class="signal">05 / 知識散落</span><h3>重要資訊都在聊天紀錄和人腦裡</h3><p>把群組、文件、客戶對話與工作紀錄整理成可以查、可以用的知識。</p></div>
-    <div class="card"><span class="signal">06 / 微型企業</span><h3>人不多，更不能一直浪費人力</h3><p>一人公司、工作室、小團隊，也能建立適合自己的自動化工作流。</p></div>
-  </div>
-</section>
-
-<section>
-  <p class="problem">真正有價值的 AI 導入，通常不是多裝一個工具。<br><em>而是讓原本卡住的工作，終於順起來。</em></p>
-  <p class="problem-sub">所以我會先問「問題發生在哪裡」，再決定需不需要 AI。很多時候，真正的解法可能是流程重整、API 串接、資料結構或自動化；AI 只是其中一塊。</p>
-</section>
-
-<section id="method">
-  <div class="kicker">PROBLEM → WORKFLOW → SOLUTION</div>
-  <h2>我的解題方式</h2>
-  <p class="section-lead">不是「你想用哪個工具」，而是從現況、限制與目標，一步一步把問題變成可執行方案。</p>
-  <div class="steps">
-    <div class="step"><span class="num">01</span><b>診斷</b><small>先聽懂現場到底怎麼運作</small></div>
-    <div class="step"><span class="num">02</span><b>拆題</b><small>把大問題拆成真正的卡點</small></div>
-    <div class="step"><span class="num">03</span><b>畫流程</b><small>找出資料、人與系統的斷點</small></div>
-    <div class="step"><span class="num">04</span><b>選解法</b><small>判斷 AI、自動化或系統怎麼配</small></div>
-    <div class="step"><span class="num">05</span><b>建置</b><small>API、DB、LINE、n8n 實際落地</small></div>
-    <div class="step"><span class="num">06</span><b>驗證</b><small>測到真的能用，再往下擴充</small></div>
-  </div>
-</section>
-
-<section id="cases">
-  <div class="kicker">REAL-WORLD PROBLEM SOLVING</div>
-  <h2>信任，不是看我會幾個工具。<br>是看我能不能把問題接住。</h2>
-  <p class="section-lead">以下這些場景的技術完全不同，但處理方式一致：先理解工作現場，再把複雜的事情拆成可以運作的系統。</p>
-
-  <div class="case">
-    <div class="card case-card">
-      <span class="signal">跨境支付 × API</span>
-      <h3>多個支付與帳務節點，怎麼讓資料自動對上？</h3>
-      <div class="case-rows">
-        <div class="case-row"><b>現場問題</b><span>交易流程跨越便利商店 EC 給號、POS、AML 與帳務系統。</span></div>
-        <div class="case-row"><b>拆解方式</b><span>釐清每個節點的資料格式、狀態與回傳條件。</span></div>
-        <div class="case-row"><b>做成什麼</b><span>以 API 與 Callback 串起跨系統流程，讓銷帳與狀態回傳能自動運作。</span></div>
-      </div>
-      <div class="quote">重點不是「串 API」，而是讓交易流程可信、可追、可驗證。</div>
-    </div>
-
-    <div class="card case-card">
-      <span class="signal">旅遊分銷 × 訂位</span>
-      <h3>原本靠人工處理的訂位，怎麼變成可管理的分銷流程？</h3>
-      <div class="case-rows">
-        <div class="case-row"><b>現場問題</b><span>同業訂票仰賴人工處理，資訊與統計分散。</span></div>
-        <div class="case-row"><b>拆解方式</b><span>重新整理角色、權限、訂位、入口與統計需求。</span></div>
-        <div class="case-row"><b>做成什麼</b><span>分級分銷、專屬網址、QR Code、訂位與統計整合成完整流程。</span></div>
-      </div>
-      <div class="quote">把「人記得怎麼做」，變成「系統知道下一步要做什麼」。</div>
-    </div>
-
-    <div class="card case-card">
-      <span class="signal">LINE × AI 知識</span>
-      <h3>大量群組訊息，怎麼從聊天變成可用的企業知識？</h3>
-      <div class="case-rows">
-        <div class="case-row"><b>現場問題</b><span>重要決策、追蹤事項與資訊散落在大量對話裡。</span></div>
-        <div class="case-row"><b>拆解方式</b><span>先定義什麼是重點、待辦、決策與可沉澱知識。</span></div>
-        <div class="case-row"><b>做成什麼</b><span>自動擷取重點、追蹤事項，產出每日／每週摘要並持續累積知識。</span></div>
-      </div>
-      <div class="quote">AI 的價值，不是多一個聊天機器人，而是把資訊變得可用。</div>
-    </div>
-
-    <div class="card case-card">
-      <span class="signal">企業 × 數位整合</span>
-      <h3>新工具一直增加，怎麼不讓系統越做越亂？</h3>
-      <div class="case-rows">
-        <div class="case-row"><b>現場問題</b><span>品牌、公共服務與企業專案常同時牽涉多角色、多資料與多系統。</span></div>
-        <div class="case-row"><b>拆解方式</b><span>先定義需求邊界、資料流、權限與系統責任。</span></div>
-        <div class="case-row"><b>做成什麼</b><span>從架構、API、資料庫到工作流，建立可以維護與持續延伸的整合方式。</span></div>
-      </div>
-      <div class="quote">技術選擇只是手段，能不能長期運作才是答案。</div>
-    </div>
+    <p id="caption" aria-live="polite">現在：同一筆資料在四個地方打轉。</p>
   </div>
 </section>
 
 <section id="about">
-  <div class="about">
-    <div class="portrait"><div><div class="kicker">ARZBAR</div><strong>吳政穎<br>阿茲</strong></div></div>
-    <div>
-      <div class="kicker">WHY ARZBAR</div>
-      <h2>工程能力，是底層。<br>解題能力，才是核心。</h2>
-      <p class="lead">我有後端、雲端架構、API、資料庫、系統整合與自動化背景。現在把這些能力和 AI 結合，專注處理企業真正卡住的工作流程。遇到問題時，我不會先問「你想用什麼工具」，而是先找出哪裡值得改、哪裡不該動、哪裡做了最有價值。</p>
-
-      <div class="principles">
-        <div class="principle"><b>我會先說清楚問題</b>能做、不能做、哪裡有風險，先釐清再開發。</div>
-        <div class="principle"><b>我不為了 AI 而 AI</b>如果流程或系統整合就能解，我不會硬塞模型。</div>
-        <div class="principle"><b>我在意能不能維護</b>方案不是 Demo 能跑就算完成，還要能接進日常工作。</div>
-        <div class="principle"><b>我習慣跨系統思考</b>從使用者、資料、API 到後端，一起看整條流程。</div>
+  <div class="letter">
+    <p class="note">我是誰</p>
+    <div class="letter-body">
+      <p class="hello">你好，我是吳政穎，<br>大家都叫我阿茲。</p>
+      <p>我的底子是工程：後端、雲端架構、API、資料庫、系統整合、自動化。這幾年把這些能力和 AI 放在一起，專心處理公司裡那些每天都在吃人力的流程。</p>
+      <p>我很少一開口就推薦工具。我會先搞懂事情現在怎麼被完成、哪一步最常出錯，再決定哪裡值得改、哪裡不要動。很多問題理完流程、接好 API 就解了，用不到模型。</p>
+      <div class="habits">
+        <div class="habit"><b>先講清楚</b><p>能做、不能做、哪裡有風險，開工前就說。</p></div>
+        <div class="habit"><b>不硬塞 AI</b><p>流程或整合能解決的，就不額外加模型。</p></div>
+        <div class="habit"><b>要能維護</b><p>Demo 能跑不算完成，要接得進日常工作。</p></div>
+        <div class="habit"><b>看整條線</b><p>從使用者、資料、API 到後端一起看。</p></div>
       </div>
-
-      <div class="tags">
-        <span class="tag">AI Workflow</span><span class="tag">n8n</span><span class="tag">LINE OA</span>
-        <span class="tag">API Integration</span><span class="tag">Database</span><span class="tag">LLM</span>
-        <span class="tag">Backend</span><span class="tag">Automation</span>
-      </div>
+      <p class="sign">— 阿茲</p>
     </div>
   </div>
 </section>
 
-<section id="contact" class="final-wrap">
-  <div class="final">
-    <div class="kicker">START WITH ONE REAL PROBLEM</div>
-    <h2>先別想要不要導 AI。<br>把你現在最卡的那一件事告訴我。</h2>
-    <p>你可以只帶一個很具體的問題來：客服回不完、資料一直複製、預約很亂、系統接不起來、同一件事每天重做。我們先判斷問題在哪裡，再看值不值得自動化。</p>
-    <div class="cta">
-      <a class="btn primary" href="https://github.com/tmparz" target="_blank" rel="noopener">找阿茲聊聊</a>
-      <a class="btn" href="#cases">再看一次實戰案例</a>
+<section id="triage">
+  <div class="sec-head">
+    <p class="note">帶問題來</p>
+    <h2>哪一種最像你現在的狀況？</h2>
+    <p class="lede">點一個看看。這是我接到這類問題時，通常會先問的事，還有常見的解法方向。</p>
+  </div>
+  <div class="triage">
+    <div class="chips" id="chips" role="group" aria-label="選一個問題"></div>
+    <div class="sheet" id="sheet" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="sec-head">
+    <p class="note">怎麼做</p>
+    <h2>六站，從聽懂到跑得動。</h2>
+    <p class="lede">順序很重要。工具在第四站才出現，前面三站都在搞懂問題。</p>
+  </div>
+  <div class="route">
+    <div class="stop"><span class="note">第 1 站</span><b>診斷</b><p>聽懂現場實際怎麼運作。</p></div>
+    <div class="stop"><span class="note">第 2 站</span><b>拆題</b><p>把大問題拆成具體卡點。</p></div>
+    <div class="stop"><span class="note">第 3 站</span><b>畫流程</b><p>標出資料、人和系統的斷點。</p></div>
+    <div class="stop"><span class="note">第 4 站</span><b>選解法</b><p>決定 AI、自動化、系統各放哪。</p></div>
+    <div class="stop"><span class="note">第 5 站</span><b>建置</b><p>API、DB、LINE、n8n 實際接上。</p></div>
+    <div class="stop"><span class="note">第 6 站</span><b>驗證</b><p>測到真的能用，再往外擴。</p></div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="sec-head">
+    <p class="note">做過的事</p>
+    <h2>四個現場，四種線。</h2>
+    <p class="lede">技術各不相同，做法一樣：先看現場，再把它拆成能運作的系統。</p>
+  </div>
+  <div class="cases">
+    <article class="case">
+      <p class="note">跨境支付 × API</p>
+      <div>
+        <h3>多個支付與帳務節點，讓資料自動對上</h3>
+        <div class="flow before"><span class="tag">原本</span><span>超商 EC 給號</span><i>→</i><span>POS</span><i>→</i><span>AML</span><i>→</i><span>帳務系統</span><i>→</i><span>人工核對</span></div>
+        <div class="flow after"><span class="tag">之後</span><span>各節點以 API 與 Callback 串接</span><i>→</i><span>銷帳與狀態自動回傳</span></div>
+        <p class="takeaway">交易要可信、可追、可驗證。</p>
+      </div>
+    </article>
+    <article class="case">
+      <p class="note">旅遊分銷 × 訂位</p>
+      <div>
+        <h3>靠人工處理的同業訂位，變成可管理的分銷流程</h3>
+        <div class="flow before"><span class="tag">原本</span><span>同業來訊</span><i>→</i><span>人工訂位</span><i>→</i><span>資訊分散</span><i>→</i><span>月底手算統計</span></div>
+        <div class="flow after"><span class="tag">之後</span><span>分級分銷與權限</span><i>→</i><span>專屬網址、QR Code</span><i>→</i><span>訂位與統計同一處</span></div>
+        <p class="takeaway">下一步該做什麼，由系統記得。</p>
+      </div>
+    </article>
+    <article class="case">
+      <p class="note">LINE × AI 知識</p>
+      <div>
+        <h3>大量群組訊息，整理成找得到的公司知識</h3>
+        <div class="flow before"><span class="tag">原本</span><span>決策埋在聊天</span><i>→</i><span>待辦靠人記</span><i>→</i><span>新人問不到</span></div>
+        <div class="flow after"><span class="tag">之後</span><span>自動擷取重點與待辦</span><i>→</i><span>每日／每週摘要</span><i>→</i><span>知識持續累積</span></div>
+        <p class="takeaway">AI 在這裡負責讓資訊能用。</p>
+      </div>
+    </article>
+    <article class="case">
+      <p class="note">企業 × 數位整合</p>
+      <div>
+        <h3>工具越加越多，系統不跟著變亂</h3>
+        <div class="flow before"><span class="tag">原本</span><span>多角色</span><i>→</i><span>多份資料</span><i>→</i><span>多套系統各自為政</span></div>
+        <div class="flow after"><span class="tag">之後</span><span>定義需求邊界、資料流、權限</span><i>→</i><span>架構、API、資料庫、工作流一起規劃</span></div>
+        <p class="takeaway">做得出來之外，還要能長期運作。</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="toolbox">
+    <p class="note">工具箱</p>
+    <div class="tools">
+      <div><b>串接</b><p>API Integration、Webhook、Callback、LINE OA</p></div>
+      <div><b>自動化</b><p>n8n、AI Workflow、排程與通知</p></div>
+      <div><b>資料</b><p>資料庫設計、資料流整理、報表統計</p></div>
+      <div><b>AI</b><p>LLM 分類、摘要、客服輔助、知識整理</p></div>
+      <div><b>後端</b><p>服務開發、權限、雲端架構</p></div>
+      <div><b>最常用的</b><p>一張白板，和很多個「現在是誰在做這件事？」</p></div>
     </div>
-    <div class="cta-hint">
-      <span>✓ 不用先準備技術規格</span>
-      <span>✓ 不用先決定工具</span>
-      <span>✓ 先把工作問題說清楚就好</span>
-    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="contact-side">
+    <p>不用先想好要不要導 AI。<br>帶一件最卡的事來就好。</p>
+  </div>
+  <div class="card-note">
+    <h2>寫一張便利貼給我</h2>
+    <p>上面只要寫三件事：</p>
+    <ul>
+      <li>這件事現在是怎麼完成的</li>
+      <li>哪一步最花時間、最常出錯</li>
+      <li>如果它順了，你最想得到什麼</li>
+    </ul>
+    <p>技術規格、工具清單都不用準備。</p>
+    <a class="go" href="https://github.com/tmparz" target="_blank" rel="noopener">在 GitHub 找到阿茲 →</a>
   </div>
 </section>
 </main>
 
-<footer>© 2026 Arzbar · AI Problem Solver / Workflow Architect</footer>
+<footer>
+  <span class="note">© 2026 阿茲 Arzbar · 吳政穎</span>
+  <span class="note">在白板上畫完，才開始寫程式</span>
+</footer>
 </div>
+
+<script>
+(function(){
+  /* ---------- the untangling line ---------- */
+  var svg=document.getElementById('wire'), NS='http://www.w3.org/2000/svg';
+  var slider=document.getElementById('tidy'), readout=document.getElementById('readout'), caption=document.getElementById('caption');
+  var N=40, X0=70, X1=930, Y=200;
+  var nodes=[{i:8,t:'LINE 訊息'},{i:16,t:'Excel'},{i:24,t:'表單'},{i:32,t:'後台'}];
+
+  function straight(i){return [X0+(X1-X0)*i/N, Y];}
+  function tangled(i){
+    var edge=Math.min(1,Math.min(i,N-i)/5);          // endpoints stay pinned
+    var s=straight(i);
+    var tx=500+360*Math.sin(i*0.61+0.5)*Math.cos(i*0.13);
+    var ty=Y+115*Math.sin(i*0.97+1.1)-10*Math.cos(i*0.4);
+    return [s[0]+(tx-s[0])*edge, s[1]+(ty-s[1])*edge];
+  }
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);(parent||svg).appendChild(e);return e;}
+  var path=el('path',{'class':'line'});
+  el('circle',{'class':'end',cx:X0,cy:Y,r:9});
+  el('circle',{'class':'end',cx:X1,cy:Y,r:9});
+  el('text',{x:X0+6,y:Y+56,'class':'small'}).textContent='問題';
+  el('text',{x:X1-6,y:Y+56,'class':'small'}).textContent='結果';
+  var nodeEls=nodes.map(function(n){
+    return {n:n,c:el('circle',{'class':'dot',r:11}),t:(function(){var t=el('text',{});t.textContent=n.t;return t;})()};
+  });
+
+  function pathFrom(p){           // Catmull-Rom → cubic Bézier
+    var d='M'+p[0][0].toFixed(1)+' '+p[0][1].toFixed(1);
+    for(var i=0;i<p.length-1;i++){
+      var a=p[i-1]||p[i], b=p[i], c=p[i+1], e=p[i+2]||c;
+      d+=' C'+(b[0]+(c[0]-a[0])/6).toFixed(1)+' '+(b[1]+(c[1]-a[1])/6).toFixed(1)+' '
+             +(c[0]-(e[0]-b[0])/6).toFixed(1)+' '+(c[1]-(e[1]-b[1])/6).toFixed(1)+' '
+             +c[0].toFixed(1)+' '+c[1].toFixed(1);
+    }
+    return d;
+  }
+
+  function draw(pct){
+    var w=ease(pct/100), pts=[];
+    for(var i=0;i<=N;i++){var a=tangled(i),b=straight(i);pts.push([a[0]+(b[0]-a[0])*w,a[1]+(b[1]-a[1])*w]);}
+    path.setAttribute('d',pathFrom(pts));
+    nodeEls.forEach(function(o,k){
+      var p=pts[o.n.i];
+      o.c.setAttribute('cx',p[0]);o.c.setAttribute('cy',p[1]);
+      o.t.setAttribute('x',p[0]);
+      o.t.setAttribute('y',p[1]+(w>.6?-28:(k%2?48:-26)));
+    });
+    readout.textContent=Math.round(pct)+'%';
+    caption.textContent=pct<30?'現在：同一筆資料在四個地方打轉。'
+      :pct<85?'拆解中：找出順序、斷點，哪裡要接 API。'
+      :'之後：同一條流程，一次走完。';
+  }
+  slider.addEventListener('input',function(){draw(+slider.value);});
+
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  draw(0);
+  if(!reduce){                     // one gentle demo on load: untangle to 100
+    var start=null, dur=2600, delay=900, touched=false;
+    slider.addEventListener('pointerdown',function(){touched=true;});
+    slider.addEventListener('keydown',function(){touched=true;});
+    setTimeout(function(){
+      requestAnimationFrame(function step(ts){
+        if(touched)return;
+        if(!start)start=ts;
+        var t=Math.min(1,(ts-start)/dur), v=t*100;
+        slider.value=v;draw(v);
+        if(t<1)requestAnimationFrame(step);
+      });
+    },delay);
+  }
+
+  /* ---------- triage ---------- */
+  var problems=[
+    {k:'重複工作',t:'同一份資料一直複製貼上',
+     feel:'LINE、表單、Excel、後台彼此不通，每天有人在搬資料。',
+     asks:['這份資料最早從哪裡進來？','它要被搬到幾個地方？','搬錯的時候，誰會發現？'],
+     fix:'通常先定一個資料的「源頭」，其他地方用 API 或自動化同步。'},
+    {k:'客戶流程',t:'訊息很多，卻沒有流程',
+     feel:'詢問、報名、付款、預約、提醒、追蹤，全靠人記得。',
+     asks:['客人從第一句話到完成，會經過哪幾步？','哪一步最常漏掉？','現在用什麼記錄進度？'],
+     fix:'把步驟畫成狀態，讓 LINE OA 或表單在每一步自動提醒與回報。'},
+    {k:'系統斷點',t:'工具很多，資料接不起來',
+     feel:'每套系統單獨都能用，中間缺 API、Webhook 或資料庫把它們接起來。',
+     asks:['各系統有沒有開放 API？','哪兩套系統之間最常手動處理？','資料對不上時以誰為準？'],
+     fix:'先接最痛的那一段，用 Webhook 和 Callback 讓狀態自己回傳。'},
+    {k:'AI 導入',t:'想用 AI，不知道放哪',
+     feel:'看到很多 AI 工具，但不確定哪一個真的對你的工作有幫助。',
+     asks:['哪些工作是大量「看了再判斷」？','判斷錯了的代價有多大？','有沒有現成資料可以參考？'],
+     fix:'先判斷需不需要 AI，常見的位置是分類、摘要、客服輔助、知識查詢。'},
+    {k:'知識散落',t:'重要資訊在聊天紀錄和人腦裡',
+     feel:'決策、做法和客戶資訊都在群組裡，要找的時候找不到。',
+     asks:['大家最常重複問的是什麼？','哪些群組的內容最重要？','誰需要看到整理後的結果？'],
+     fix:'自動擷取重點與待辦，做成每日／每週摘要，慢慢累積成可以查的知識。'},
+    {k:'小團隊',t:'人不多，更不能浪費人力',
+     feel:'一人公司、工作室或小團隊，每個人都身兼數職。',
+     asks:['一週裡哪件事最讓你煩？','哪件事只有你會做？','每月可以花多少在工具上？'],
+     fix:'挑一條最常跑的流程，用 n8n 這類工具做輕量自動化，先省下時間。'}
+  ];
+  var chips=document.getElementById('chips'), sheet=document.getElementById('sheet');
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function show(idx){
+    var p=problems[idx];
+    [].forEach.call(chips.children,function(b,j){b.setAttribute('aria-pressed',j===idx?'true':'false');});
+    sheet.innerHTML='<p class="note">'+esc(p.k)+'</p><h3>'+esc(p.t)+'</h3><dl>'
+      +'<div><dt>你大概遇到的是</dt><dd>'+esc(p.feel)+'</dd></div>'
+      +'<div><dt>我會先問</dt><dd><ol class="asks">'+p.asks.map(function(a){return '<li>'+esc(a)+'</li>';}).join('')+'</ol></dd></div>'
+      +'<div><dt>常見的解法方向</dt><dd class="fix">'+esc(p.fix)+'</dd></div></dl>';
+  }
+  problems.forEach(function(p,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip';b.id='chip-'+i;
+    b.innerHTML='<span class="note">'+esc(p.k)+'</span><span>'+esc(p.t)+'</span>';
+    b.addEventListener('click',function(){show(i);});
+    chips.appendChild(b);
+  });
+  show(0);
+})();
+</script>
 </body>
 </html>
