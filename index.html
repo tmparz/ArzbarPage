@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>阿茲 Arzbar</title>
-<meta name="description" content="我是吳政穎，大家叫我阿茲。我把卡住的工作拆開、理順，再用 AI、自動化、API 與系統整合把它接起來。">
+<title>阿茲 Arzbar｜AI 問題解決師</title>
+<meta name="description" content="阿茲｜AI 問題解決師。從真實工作問題出發，判斷 AI 該放哪裡，再用自動化、API、資料與系統整合把解法做成能運作的流程。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Martian+Mono:wght@400;600&display=swap">
@@ -70,7 +70,12 @@ header nav a:hover{color:var(--marker)}
 .hero{padding-block:clamp(40px,7vw,80px) 24px}
 .hero h1{font-size:clamp(38px,6.6vw,76px);line-height:1.18;max-width:15em}
 .hero .intro{max-width:36em;margin-top:22px;font-size:18px;color:var(--muted)}
-.hero .intro strong{color:var(--ink);font-weight:500}
+.hero .intro strong{color:var(--ink);font-weight:700}
+.identity{display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--marker);color:var(--marker);padding:7px 12px;border-radius:999px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em}
+.identity::before{content:"AI";display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--marker);color:var(--board);font-family:var(--mono);font-size:11px}
+.ai-signals{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:24px;padding-top:18px;border-top:1px solid var(--rule);max-width:760px}
+.ai-signal{display:flex;gap:8px;align-items:baseline;color:var(--muted);font-size:14px}
+.ai-signal b{font-family:var(--hand);font-size:20px;color:var(--marker)}
 
 .board{margin-top:40px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding-block:14px 18px}
 .board-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -182,7 +187,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 <div class="page">
 
 <header>
-  <div class="name"><b>阿茲</b><span class="note">吳政穎 · Arzbar</span></div>
+  <div class="name"><b>阿茲</b><span class="note">AI 問題解決師 · Arzbar</span></div>
   <nav aria-label="頁面導覽">
     <a href="#about">我是誰</a>
     <a href="#triage">帶問題來</a>
@@ -194,13 +199,18 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 
 <main>
 <section class="hero" style="padding-top:clamp(40px,7vw,80px)">
-  <p class="note">工作流程架構 · AI 導入 · 系統整合</p>
-  <h1 style="margin-top:14px">把纏成一團的工作交給我，<br>我把它<mark>理成一條線</mark>。</h1>
-  <p class="intro">訊息在 LINE，資料在 Excel，表單又是另一套，最後有人手動對帳。<strong>我做的事，是把這些東西排好順序、接起來，</strong>該用 AI 的地方才用 AI。</p>
+  <div class="identity">AI PROBLEM SOLVER · AI 問題解決師</div>
+  <h1 style="margin-top:18px">你把問題帶來，<br>我把它拆到<mark>AI 真正幫得上忙</mark>。</h1>
+  <p class="intro">我是阿茲。我的工作不是先推薦 ChatGPT、Agent 或自動化工具，而是先判斷：<strong>問題到底卡在哪裡？AI 該不該介入？如果要用，應該放在哪一步才真的省時間、降錯誤、讓工作變順。</strong></p>
+  <div class="ai-signals" aria-label="AI 問題解決方式">
+    <div class="ai-signal"><b>看懂</b><span>把模糊問題拆清楚</span></div>
+    <div class="ai-signal"><b>判斷</b><span>決定 AI 值不值得用</span></div>
+    <div class="ai-signal"><b>落地</b><span>接進流程、資料與系統</span></div>
+  </div>
 
   <div class="board" aria-label="工作流程整理示意">
     <div class="board-head">
-      <span class="note">白板示意 · 一家小公司的日常</span>
+      <span class="note">AI 解題白板 · 從問題到可運作的解法</span>
       <span class="note">拉動下方把手</span>
     </div>
     <svg id="wire" viewBox="0 0 1000 360" role="img" aria-label="一條纏繞的線，隨整理程度變成一條直線，串起 LINE 訊息、Excel、表單、後台四個節點"></svg>
@@ -217,8 +227,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
   <div class="letter">
     <p class="note">我是誰</p>
     <div class="letter-body">
-      <p class="hello">你好，我是吳政穎，<br>大家都叫我阿茲。</p>
-      <p>我的底子是工程：後端、雲端架構、API、資料庫、系統整合、自動化。這幾年把這些能力和 AI 放在一起，專心處理公司裡那些每天都在吃人力的流程。</p>
+      <p class="hello">你好，我是吳政穎，大家都叫我阿茲。<br><mark>我是一個 AI 問題解決師。</mark></p>
+      <p>我的底子是工程：後端、雲端架構、API、資料庫、系統整合、自動化。現在我把這些能力和 AI 放在一起，處理的核心不是「導入某個 AI 工具」，而是把公司的真實問題拆開，找出 AI 最有價值的介入點，再把它接進日常工作。</p>
       <p>我很少一開口就推薦工具。我會先搞懂事情現在怎麼被完成、哪一步最常出錯，再決定哪裡值得改、哪裡不要動。很多問題理完流程、接好 API 就解了，用不到模型。</p>
       <div class="habits">
         <div class="habit"><b>先講清楚</b><p>能做、不能做、哪裡有風險，開工前就說。</p></div>
@@ -234,8 +244,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 <section id="triage">
   <div class="sec-head">
     <p class="note">帶問題來</p>
-    <h2>哪一種最像你現在的狀況？</h2>
-    <p class="lede">點一個看看。這是我接到這類問題時，通常會先問的事，還有常見的解法方向。</p>
+    <h2>先別問「要用哪個 AI」。<br>先看你的問題是哪一種。</h2>
+    <p class="lede">AI 問題解決的第一步不是選模型，是先把問題定義對。點一個看看，我會怎麼問、怎麼判斷，以及 AI 是否真的需要出場。</p>
   </div>
   <div class="triage">
     <div class="chips" id="chips" role="group" aria-label="選一個問題"></div>
@@ -246,8 +256,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 <section id="method">
   <div class="sec-head">
     <p class="note">怎麼做</p>
-    <h2>六站，從聽懂到跑得動。</h2>
-    <p class="lede">順序很重要。工具在第四站才出現，前面三站都在搞懂問題。</p>
+    <h2>AI 問題解決六步法</h2>
+    <p class="lede">我不從工具開始。前三步先把問題、流程與資料看懂，第四步才決定 AI、Automation、API 或既有系統各自該做什麼。</p>
   </div>
   <div class="route">
     <div class="stop"><span class="note">第 1 站</span><b>診斷</b><p>聽懂現場實際怎麼運作。</p></div>
@@ -262,8 +272,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 <section id="cases">
   <div class="sec-head">
     <p class="note">做過的事</p>
-    <h2>四個現場，四種線。</h2>
-    <p class="lede">技術各不相同，做法一樣：先看現場，再把它拆成能運作的系統。</p>
+    <h2>AI 解題能力，要看怎麼處理真實現場。</h2>
+    <p class="lede">我不把「用了 AI」當成果。真正的成果，是問題被拆清楚、資訊開始流動、判斷可以被輔助、流程可以持續運作。</p>
   </div>
   <div class="cases">
     <article class="case">
@@ -307,12 +317,12 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 
 <section id="tools">
   <div class="toolbox">
-    <p class="note">工具箱</p>
+    <p class="note">AI 解題工具箱</p>
     <div class="tools">
       <div><b>串接</b><p>API Integration、Webhook、Callback、LINE OA</p></div>
       <div><b>自動化</b><p>n8n、AI Workflow、排程與通知</p></div>
       <div><b>資料</b><p>資料庫設計、資料流整理、報表統計</p></div>
-      <div><b>AI</b><p>LLM 分類、摘要、客服輔助、知識整理</p></div>
+      <div><b>AI 能力</b><p>理解文字、分類、摘要、知識查詢、判斷輔助、Agent 與 LLM 工作流</p></div>
       <div><b>後端</b><p>服務開發、權限、雲端架構</p></div>
       <div><b>最常用的</b><p>一張白板，和很多個「現在是誰在做這件事？」</p></div>
     </div>
@@ -321,24 +331,24 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
 
 <section id="contact" class="contact">
   <div class="contact-side">
-    <p>不用先想好要不要導 AI。<br>帶一件最卡的事來就好。</p>
+    <p><mark>AI 問題解決，從一個真實問題開始。</mark><br>帶一件最卡的事來就好。</p>
   </div>
   <div class="card-note">
-    <h2>寫一張便利貼給我</h2>
+    <h2>把問題丟給我，<br>我先幫你判斷怎麼解。</h2>
     <p>上面只要寫三件事：</p>
     <ul>
       <li>這件事現在是怎麼完成的</li>
       <li>哪一步最花時間、最常出錯</li>
       <li>如果它順了，你最想得到什麼</li>
     </ul>
-    <p>技術規格、工具清單都不用準備。</p>
+    <p>不用先決定 ChatGPT、Claude、Agent、n8n 或任何工具。先把問題說清楚，我們再決定 AI 要不要出場。</p>
     <a class="go" href="https://lin.ee/8PAjp8A" target="_blank" rel="noopener">加 LINE 找阿茲聊聊 →</a>
   </div>
 </section>
 </main>
 
 <footer>
-  <span class="note">© 2026 阿茲 Arzbar · 吳政穎</span>
+  <span class="note">© 2026 阿茲 Arzbar · AI 問題解決師</span>
   <span class="note">在白板上畫完，才開始寫程式</span>
 </footer>
 </div>
@@ -349,7 +359,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
   var svg=document.getElementById('wire'), NS='http://www.w3.org/2000/svg';
   var slider=document.getElementById('tidy'), readout=document.getElementById('readout'), caption=document.getElementById('caption');
   var N=40, X0=70, X1=930, Y=200;
-  var nodes=[{i:8,t:'LINE 訊息'},{i:16,t:'Excel'},{i:24,t:'表單'},{i:32,t:'後台'}];
+  var nodes=[{i:8,t:'流程'},{i:16,t:'資料'},{i:24,t:'AI'},{i:32,t:'系統'}];
 
   function straight(i){return [X0+(X1-X0)*i/N, Y];}
   function tangled(i){
@@ -393,9 +403,9 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding
       o.t.setAttribute('y',p[1]+(w>.6?-28:(k%2?48:-26)));
     });
     readout.textContent=Math.round(pct)+'%';
-    caption.textContent=pct<30?'現在：同一筆資料在四個地方打轉。'
-      :pct<85?'拆解中：找出順序、斷點，哪裡要接 API。'
-      :'之後：同一條流程，一次走完。';
+    caption.textContent=pct<30?'現在：問題很多，但還不知道 AI 該放哪裡。'
+      :pct<85?'拆解中：先找真正卡點，再判斷 AI、自動化與系統怎麼分工。'
+      :'之後：AI 被放在對的位置，整條工作流才真正跑得動。';
   }
   slider.addEventListener('input',function(){draw(+slider.value);});
 
