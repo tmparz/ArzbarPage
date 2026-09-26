@@ -1,0 +1,8 @@
+audio/raw/*.mp3
+audio/sfx/*.mp3
+audio/*.wav
+node_modules/
+renders/
+snapshots/
+.hyperframes/anim-map/
+
